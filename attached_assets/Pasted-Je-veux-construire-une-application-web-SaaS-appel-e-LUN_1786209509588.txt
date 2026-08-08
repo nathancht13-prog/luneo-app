@@ -1,0 +1,551 @@
+Je veux construire une application web SaaS appelée LUNEO.
+
+IMPORTANT :
+Je ne veux PAS commencer par une landing page marketing.
+Je veux construire directement le produit / l'application.
+
+Luneo est une application destinée aux familles qui permet aux parents de créer des histoires personnalisées pour leurs enfants.
+
+PROMESSE DE LUNEO :
+"Les histoires où votre enfant est le héros."
+
+Le principe fondamental :
+L'enfant est TOUJOURS le personnage principal de l'histoire.
+
+Le parent crée un profil pour son enfant, puis peut créer une histoire personnalisée en fonction de son âge, de ses goûts et du type d'histoire choisi.
+
+Luneo doit donner envie de revenir chaque soir pour lire une nouvelle histoire ou continuer une aventure.
+
+==================================================
+1. IDENTITÉ DE LA MARQUE
+==================================================
+
+Nom : Luneo
+
+Style visuel :
+- premium
+- doux
+- magique
+- enfantin sans être bébé
+- moderne
+- rassurant
+- très propre
+- agréable pour les parents comme pour les enfants
+
+Palette principale :
+
+Bleu nuit :
+#1E3A8A
+
+Jaune doux :
+#F6C453
+
+Blanc cassé :
+#FAF8F5
+
+Utiliser principalement ces 3 couleurs pour l'interface.
+
+Le logo de Luneo sera ajouté plus tard.
+Prévoir un emplacement propre pour le logo.
+
+Le logo représente une lune avec une ou plusieurs petites étoiles.
+
+Ne pas ajouter le slogan dans le logo.
+
+==================================================
+2. PRINCIPES IMPORTANTS
+==================================================
+
+L'enfant est toujours le héros.
+
+Ne jamais demander de photo de l'enfant.
+
+La V1 ne doit pas utiliser :
+- caméra
+- photo de l'enfant
+- voix IA
+- musique
+- vidéo
+- avatar réaliste de l'enfant
+- animation complexe
+
+Le parent lit lui-même l'histoire.
+
+L'expérience doit rester centrée sur :
+parent + enfant + histoire + illustrations.
+
+==================================================
+3. STRUCTURE DES HISTOIRES
+==================================================
+
+Il existe DEUX GRANDES CATÉGORIES.
+
+------------------------------------------
+CATÉGORIE 1 : DIVERTISSEMENT
+------------------------------------------
+
+Objectif :
+Faire rêver, rire et divertir l'enfant.
+
+Thèmes possibles :
+
+- 🐉 Dragons
+- 🦖 Dinosaures
+- 🚀 Espace
+- 🏴‍☠️ Pirates
+- 🧙 Magie
+- 🔎 Mystère
+- 😂 Drôle
+- 🌲 Aventure
+- 🎲 Surprise
+
+------------------------------------------
+CATÉGORIE 2 : ÉMOTIONS & APPRENTISSAGE
+------------------------------------------
+
+Objectif :
+Aider l'enfant à comprendre certaines situations ou émotions grâce à une histoire.
+
+Thèmes possibles :
+
+- 😡 Gérer sa colère
+- 🤝 Apprendre à partager
+- ❤️ Comprendre ses émotions
+- 💪 Confiance en soi
+- 😨 Peur du noir
+- 🫶 Patience
+- 👋 Séparation
+- 🧒 Amitié
+- 🌱 Grandir
+
+IMPORTANT :
+
+Les histoires éducatives ne doivent JAMAIS ressembler à une leçon.
+
+L'enfant doit découvrir le sujet à travers l'aventure du héros.
+
+Exemple :
+
+Si le parent choisit "Gérer sa colère", ne pas écrire une histoire qui dit directement à l'enfant qu'il doit contrôler sa colère.
+
+Créer plutôt une aventure dans laquelle le héros rencontre une situation liée à la colère et apprend progressivement quelque chose à travers l'histoire.
+
+==================================================
+4. EXPÉRIENCE DE CRÉATION D'UNE HISTOIRE
+==================================================
+
+Quand le parent ouvre le dashboard, afficher quelque chose comme :
+
+"Bonsoir 👋"
+
+"Quelle histoire allons-nous vivre ce soir ?"
+
+Ajouter un bouton principal :
+
+"✨ Créer une histoire"
+
+Lorsque le parent clique dessus :
+
+ÉTAPE 1 :
+Afficher deux grandes cartes :
+
+🎉 DIVERTISSEMENT
+"Pour rêver, rire et partir à l'aventure."
+
+❤️ ÉMOTIONS & APPRENTISSAGE
+"Pour grandir et comprendre ses émotions."
+
+ÉTAPE 2 :
+Une fois la catégorie choisie, afficher les thèmes correspondants.
+
+Exemple :
+
+Divertissement :
+Dragons / Dinosaures / Espace / Pirates / Magie / Drôle / Mystère / Aventure
+
+Émotions & apprentissage :
+Colère / Partage / Confiance / Peur / Amitié / Patience / etc.
+
+ÉTAPE 3 :
+Permettre de choisir :
+
+- enfant
+- thème
+- longueur de l'histoire
+- éventuellement une idée personnalisée
+
+ÉTAPE 4 :
+Permettre de choisir :
+
+"✨ Nouvelle aventure"
+
+ou
+
+"📖 Continuer une aventure"
+
+ÉTAPE 5 :
+Afficher une page de génération.
+
+Pour la V1, la génération peut être simulée avec des données fictives.
+
+NE PAS encore connecter une API IA.
+
+==================================================
+5. PROFIL ENFANT
+==================================================
+
+Créer une page permettant au parent de créer un profil enfant.
+
+Informations :
+
+- prénom
+- âge
+- centres d'intérêt
+- thèmes préférés
+- animaux préférés
+- créatures/personnages préférés
+- éventuellement frères/sœurs
+- préférences de lecture
+
+NE PAS demander de photo.
+
+Exemple de profil :
+
+Léo
+6 ans
+
+Aime :
+🦖 Dinosaures
+🐉 Dragons
+🚀 Espace
+
+==================================================
+6. HISTOIRES PERSONNALISÉES
+==================================================
+
+Chaque histoire doit être personnalisée en fonction du profil de l'enfant.
+
+Chaque histoire doit contenir :
+
+- titre
+- texte
+- catégorie
+- thème
+- âge recommandé
+- date
+- illustration principale
+- illustrations éventuelles
+- personnages
+- numéro d'épisode
+- série éventuelle
+
+Le prénom de l'enfant doit apparaître naturellement dans l'histoire.
+
+L'enfant doit être le personnage principal.
+
+==================================================
+7. SÉRIES ET AVENTURES
+==================================================
+
+C'est une fonctionnalité très importante de Luneo.
+
+Les histoires peuvent appartenir à une série.
+
+Exemple :
+
+"Les aventures de Léo et Flamme"
+
+Épisode 1 :
+"La porte mystérieuse"
+
+Épisode 2 :
+"La forêt enchantée"
+
+Épisode 3 :
+"Le royaume des dragons"
+
+Les personnages peuvent revenir dans les épisodes suivants.
+
+Créer une interface permettant de voir :
+
+- nom de la série
+- illustration
+- épisodes
+- épisodes terminés
+- épisode actuel
+- prochain épisode
+
+Le but est de créer une continuité et de donner envie à l'enfant de revenir le lendemain soir.
+
+==================================================
+8. PAGE DE LECTURE
+==================================================
+
+Créer une vraie page de lecture agréable.
+
+Elle doit ressembler à un livre numérique moderne.
+
+Afficher :
+
+- titre
+- illustration
+- texte de l'histoire
+- illustrations entre certaines parties du texte
+- numéro d'épisode si applicable
+- série si applicable
+
+Le texte doit être très lisible pour le parent qui lit à voix haute.
+
+Prévoir des boutons :
+
+"← Retour"
+
+"♡ Ajouter aux favoris"
+
+"Terminer l'histoire"
+
+"Continuer l'aventure"
+
+==================================================
+9. BIBLIOTHÈQUE
+==================================================
+
+Créer une bibliothèque avec :
+
+- toutes les histoires
+- histoires récentes
+- favoris
+- séries en cours
+
+Ajouter des filtres par catégorie.
+
+Ajouter une recherche.
+
+Les cartes d'histoires doivent afficher :
+
+- illustration
+- titre
+- catégorie
+- date
+- série éventuelle
+
+==================================================
+10. DASHBOARD
+==================================================
+
+Le dashboard doit être le cœur de l'application.
+
+Exemple :
+
+"Bonsoir 👋"
+
+"Quelle aventure allons-nous vivre ce soir ?"
+
+Puis afficher :
+
+[ ✨ Créer une histoire ]
+
+Ensuite :
+
+"Continuer une aventure"
+
+Afficher les séries en cours.
+
+Puis :
+
+"Histoires récentes"
+
+Puis :
+
+"Favoris"
+
+Le dashboard doit être très simple et chaleureux.
+
+==================================================
+11. HISTOIRES DU SOIR
+==================================================
+
+Prévoir une possibilité de créer des histoires calmes adaptées au coucher.
+
+Mais "Histoire du soir" n'est PAS une troisième grande catégorie.
+
+Les deux grandes catégories restent :
+
+🎉 Divertissement
+
+❤️ Émotions & apprentissage
+
+Une histoire peut simplement avoir un style "calme / coucher".
+
+==================================================
+12. DONNÉES DE DÉMONSTRATION
+==================================================
+
+Créer des données fictives pour pouvoir tester toute l'application.
+
+Créer par exemple :
+
+Enfant :
+Léo
+6 ans
+
+Centres d'intérêt :
+Dinosaures
+Dragons
+Espace
+
+Créer une série :
+
+"Les aventures de Léo et Flamme"
+
+Avec plusieurs épisodes fictifs.
+
+Créer également quelques histoires individuelles.
+
+==================================================
+13. NAVIGATION
+==================================================
+
+Créer une navigation claire.
+
+Pages principales :
+
+- Dashboard
+- Créer une histoire
+- Bibliothèque
+- Séries
+- Profil enfant
+- Paramètres
+
+La navigation doit fonctionner réellement.
+
+==================================================
+14. AUTHENTIFICATION
+==================================================
+
+Créer l'interface :
+
+- Connexion
+- Inscription
+- Mot de passe oublié
+
+Pour la première version, l'authentification peut être simulée/localisée si nécessaire.
+
+NE PAS intégrer Supabase pour le moment.
+
+Préparer toutefois l'architecture pour pouvoir ajouter une vraie authentification plus tard.
+
+==================================================
+15. ARCHITECTURE DU CODE
+==================================================
+
+Le code doit être propre et modulaire.
+
+Séparer correctement :
+
+- composants UI
+- pages
+- données
+- types
+- services
+- logique métier
+
+Utiliser des composants réutilisables.
+
+Ne pas créer un seul énorme fichier contenant toute l'application.
+
+Préparer l'architecture pour pouvoir ajouter plus tard :
+
+- Supabase
+- API Anthropic Claude
+- génération d'images
+- Stripe
+- authentification réelle
+
+==================================================
+16. IA
+==================================================
+
+IMPORTANT :
+
+NE PAS connecter l'API Claude pour le moment.
+
+Utiliser des histoires fictives / mock data pour la V1.
+
+Mais créer une architecture permettant de remplacer facilement les données fictives par une vraie génération via API plus tard.
+
+La future architecture sera :
+
+Luneo
+↓
+API backend
+↓
+Anthropic Claude API
+↓
+histoire personnalisée
+↓
+Luneo
+
+==================================================
+17. GÉNÉRATION D'IMAGES
+==================================================
+
+NE PAS connecter de générateur d'images pour le moment.
+
+Utiliser des illustrations fictives / placeholders propres.
+
+Préparer l'architecture afin de pouvoir ajouter plus tard une API de génération d'images.
+
+==================================================
+18. PAIEMENT
+==================================================
+
+NE PAS intégrer Stripe pour le moment.
+
+Prévoir uniquement une architecture permettant d'ajouter un abonnement plus tard.
+
+==================================================
+19. IMPORTANT : NE PAS FAIRE
+==================================================
+
+Ne pas créer la landing page marketing pour le moment.
+
+Ne pas intégrer :
+- Stripe
+- Supabase
+- API Claude
+- API de génération d'images
+- voix
+- musique
+- vidéo
+
+L'objectif est d'abord d'avoir une V1 fonctionnelle et navigable.
+
+==================================================
+20. OBJECTIF FINAL DE CETTE PREMIÈRE VERSION
+==================================================
+
+Je dois pouvoir :
+
+1. ouvrir Luneo
+2. créer / sélectionner un enfant
+3. arriver sur le dashboard
+4. cliquer sur "Créer une histoire"
+5. choisir :
+   - Divertissement
+   - ou Émotions & apprentissage
+6. choisir un thème
+7. choisir une longueur
+8. créer une histoire fictive
+9. lire l'histoire
+10. ajouter l'histoire aux favoris
+11. retrouver l'histoire dans la bibliothèque
+12. voir une série
+13. continuer une série
+14. naviguer dans toute l'application
+
+Toutes les interactions principales doivent fonctionner avec des données fictives.
+
+L'objectif est d'obtenir une V1 qui ressemble déjà à une vraie application SaaS, même si les APIs réelles seront connectées plus tard.
+
+Commence maintenant par construire l'application complète et fonctionnelle, sans créer la landing page marketing.

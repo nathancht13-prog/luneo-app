@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Luneo"
+description = "Une application familiale qui permet aux parents de créer, lire et continuer des histoires personnalisées où leur enfant est toujours le héros."
+version = "1.0.0"
+id = "artifacts/luneo"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19976
+
+[services.development]
+run = "pnpm --filter @workspace/luneo run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/luneo", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/luneo/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19976"
+BASE_PATH = "/"

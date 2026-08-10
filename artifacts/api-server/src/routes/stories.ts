@@ -32,7 +32,7 @@ router.post("/stories/generate", async (req, res) => {
 
   try {
     const response = await client.messages.parse({
-      model: "claude-opus-5",
+      model: "claude-haiku-4-5",
       max_tokens: 2048,
       system:
         "Tu es un auteur d'histoires du soir pour enfants, en français. Tu écris des histoires douces, bienveillantes et rassurantes, jamais effrayantes ni violentes, toujours adaptées à l'âge indiqué. L'enfant nommé par l'utilisateur est toujours le héros ou l'héroïne de l'histoire.",

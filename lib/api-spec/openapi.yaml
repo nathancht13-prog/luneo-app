@@ -10,7 +10,32 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: stories
+    description: Story generation operations
 paths:
+  /stories/generate:
+    post:
+      operationId: generateStory
+      tags: [stories]
+      summary: Generate a personalized bedtime story
+      description: Uses Claude to write a short bedtime story starring the given child
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateStoryRequest"
+      responses:
+        "200":
+          description: Story generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneratedStory"
+        "400":
+          description: Invalid request
+        "502":
+          description: Generation failed
   /healthz:
     get:
       operationId: healthCheck
@@ -33,4 +58,41 @@ components:
           type: string
       required:
         - status
+    GenerateStoryRequest:
+      type: object
+      properties:
+        childName:
+          type: string
+        childAge:
+          type: integer
+        category:
+          type: string
+        theme:
+          type: string
+        length:
+          type: string
+        idea:
+          type: string
+        interests:
+          type: array
+          items:
+            type: string
+      required:
+        - childName
+        - childAge
+        - category
+        - theme
+        - length
+    GeneratedStory:
+      type: object
+      properties:
+        title:
+          type: string
+        paragraphs:
+          type: array
+          items:
+            type: string
+      required:
+        - title
+        - paragraphs
 

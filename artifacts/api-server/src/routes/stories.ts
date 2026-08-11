@@ -22,6 +22,13 @@ const storyOutputSchema = z.object({
   paragraphs: z.array(z.string()),
 });
 
+const WORDS_PER_MINUTE_READ_ALOUD = 130;
+
+function targetWordCount(lengthLabel: string): number {
+  const minutes = Number(lengthLabel.match(/\d+/)?.[0] ?? 8);
+  return Math.round(minutes * WORDS_PER_MINUTE_READ_ALOUD);
+}
+
 router.post("/stories/generate", async (req, res) => {
   const parsed = generateRequestSchema.safeParse(req.body);
   if (!parsed.success) {
@@ -30,12 +37,14 @@ router.post("/stories/generate", async (req, res) => {
   }
   const { childName, childAge, category, theme, length, idea, interests } = parsed.data;
 
+  const words = targetWordCount(length);
+
   try {
     const response = await client.messages.parse({
       model: "claude-haiku-4-5",
-      max_tokens: 2048,
+      max_tokens: 4096,
       system:
-        "Tu es un auteur d'histoires du soir pour enfants, en français. Tu écris des histoires douces, bienveillantes et rassurantes, jamais effrayantes ni violentes, toujours adaptées à l'âge indiqué. L'enfant nommé par l'utilisateur est toujours le héros ou l'héroïne de l'histoire.",
+        "Tu es un auteur d'histoires du soir pour enfants, en français. Tu écris des histoires douces, bienveillantes et rassurantes, jamais effrayantes ni violentes, toujours adaptées à l'âge indiqué. L'enfant nommé par l'utilisateur est toujours le héros ou l'héroïne de l'histoire. Tu respectes précisément la longueur demandée : une histoire trop courte n'est pas acceptable.",
       messages: [
         {
           role: "user",
@@ -43,10 +52,11 @@ router.post("/stories/generate", async (req, res) => {
             `Écris une histoire du soir pour ${childName}, ${childAge} ans.`,
             `Catégorie : ${category}`,
             `Thème : ${theme}`,
-            `Longueur de lecture visée : ${length}`,
             interests?.length ? `Centres d'intérêt de l'enfant : ${interests.join(", ")}` : null,
             idea ? `Idée particulière à intégrer : ${idea}` : null,
-            `L'histoire est écrite à la troisième personne, met ${childName} au centre de l'aventure, et tient en 3 à 5 paragraphes courts. Donne aussi un titre court et évocateur.`,
+            `L'histoire est écrite à la troisième personne et met ${childName} au centre de l'aventure.`,
+            `Longueur : vise environ ${words} mots au total (soit une lecture à voix haute d'environ ${length}). C'est une longueur cible importante à respecter, ne t'arrête pas prématurément — développe le déroulé, les dialogues et les détails pour l'atteindre naturellement. Répartis le texte sur plusieurs paragraphes réguliers (environ 120 à 180 mots chacun).`,
+            `Donne aussi un titre court et évocateur.`,
           ]
             .filter(Boolean)
             .join("\n"),

@@ -48,6 +48,7 @@ function LandingPage() {
         </div>
       </div>
       <div className="moon-scene landing-moon"><span className="star one">✦</span><span className="star two">✦</span></div>
+      <span className="shooting-star" />
     </section>
     <section className="landing-features">
       <div className="feature-card"><Sparkles size={20} /><h3>Votre enfant, héros de l’histoire</h3><p>Prénom, âge, passions : chaque histoire est écrite pour lui, et seulement pour lui.</p></div>

@@ -25,7 +25,8 @@ const storyOutputSchema = z.object({
 const WORDS_PER_MINUTE_READ_ALOUD = 130;
 
 function targetWordCount(lengthLabel: string): number {
-  const minutes = Number(lengthLabel.match(/\d+/)?.[0] ?? 8);
+  const numbers = [...lengthLabel.matchAll(/\d+/g)].map((m) => Number(m[0]));
+  const minutes = numbers.length > 0 ? numbers.reduce((a, b) => a + b, 0) / numbers.length : 8;
   return Math.round(minutes * WORDS_PER_MINUTE_READ_ALOUD);
 }
 

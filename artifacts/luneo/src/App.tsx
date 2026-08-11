@@ -47,8 +47,10 @@ function LandingPage() {
           <Link href="/login" className="text-link" data-testid="link-hero-login">J’ai déjà un compte <ChevronRight size={14} /></Link>
         </div>
       </div>
-      <div className="moon-scene landing-moon"><span className="star one">✦</span><span className="star two">✦</span></div>
-      <span className="shooting-star" />
+      <div className="landing-moon"><img className="landing-moon-img" src="/luneo-mark.png" alt="" /><span className="star one">✦</span><span className="star two">✦</span></div>
+      <span className="shooting-star" style={{ top: '12%', right: '48%', animationDelay: '.3s' }} />
+      <span className="shooting-star" style={{ top: '30%', right: '18%', animationDelay: '3.1s' }} />
+      <span className="shooting-star" style={{ top: '6%', right: '68%', animationDelay: '5.8s' }} />
     </section>
     <section className="landing-features">
       <div className="feature-card"><Sparkles size={20} /><h3>Votre enfant, héros de l’histoire</h3><p>Prénom, âge, passions : chaque histoire est écrite pour lui, et seulement pour lui.</p></div>

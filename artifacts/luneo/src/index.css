@@ -89,7 +89,8 @@ button, input, textarea, select { font: inherit; } button { cursor: pointer; } a
 .landing-hero-copy p { color:#ced8f3; font-size:16px; line-height:1.7; max-width:520px; }
 .landing-hero-actions { display:flex; align-items:center; gap:22px; margin-top:28px; flex-wrap:wrap; }
 .landing-hero-actions .text-link { color:#f6c453; }
-.landing-moon { position:absolute; right:6%; bottom:-70px; }
+.landing-moon { position:absolute; right:6%; bottom:-60px; width:210px; height:210px; }
+.landing-moon-img { width:190px; height:190px; border-radius:50%; object-fit:cover; box-shadow:0 0 0 18px rgba(246,196,83,.10), 0 0 0 38px rgba(246,196,83,.06), 0 20px 55px rgba(0,0,0,.35); }
 .landing-features { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; max-width:1400px; margin:0 auto 70px; padding:0 clamp(20px,4vw,56px); width:100%; }
 .feature-card { padding:26px; background:#fff; border:1px solid #e9e2d8; border-radius:18px; transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
 .feature-card:hover { transform:translateY(-5px); box-shadow:0 16px 32px rgba(30,58,138,.14); border-color:#e6d6a8; }
@@ -97,7 +98,7 @@ button, input, textarea, select { font: inherit; } button { cursor: pointer; } a
 .feature-card:hover svg { transform:translateY(-2px) rotate(-6deg); }
 .feature-card h3 { margin:0 0 8px; font-family:var(--app-font-serif); color:#24345c; font-size:19px; }
 .feature-card p { margin:0; color:#6c7488; font-size:13px; line-height:1.55; }
-.shooting-star { position:absolute; top:20%; right:38%; width:2px; height:2px; border-radius:50%; background:#fff; opacity:0; animation:shoot 8s ease-in infinite; animation-delay:2.5s; }
+.shooting-star { position:absolute; width:2px; height:2px; border-radius:50%; background:#fff; opacity:0; animation:shoot 8s ease-in infinite; }
 .shooting-star:before { content:''; position:absolute; top:50%; right:0; width:80px; height:1px; background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.85)); transform:translateY(-50%); }
 @keyframes shoot { 0% { transform:translate(0,0); opacity:0; } 4% { opacity:1; } 16% { transform:translate(-160px,100px); opacity:0; } 100% { transform:translate(-160px,100px); opacity:0; } }
 @media (prefers-reduced-motion: reduce) { .shooting-star { animation:none; opacity:0; } .feature-card, .feature-card svg { transition:none; } }

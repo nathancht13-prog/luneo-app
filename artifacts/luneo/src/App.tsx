@@ -140,8 +140,11 @@ function LuneoMark({ size = 34 }: { size?: number }) {
       </defs>
       {/* Crescent: outer circle with cutout shifted upper-left */}
       <circle cx="19" cy="18" r="14" fill="#F6C453" mask={`url(#lm-${uid})`} />
-      {/* Tiny star dot */}
-      <circle cx="31" cy="8" r="1.6" fill="#F6C453" opacity="0.65" />
+      {/* Eyes */}
+      <circle cx="24.5" cy="16.5" r="1.1" fill="#1E3A8A" />
+      <circle cx="28.5" cy="15.5" r="1.1" fill="#1E3A8A" />
+      {/* Smile */}
+      <path d="M 23.5 21 Q 26.5 24.5 30 21.5" stroke="#1E3A8A" strokeWidth="1.3" fill="none" strokeLinecap="round" />
     </svg>
   );
 }

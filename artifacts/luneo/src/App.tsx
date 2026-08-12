@@ -195,7 +195,23 @@ function LandingPage() {
           </div>
         </div>
         <div className="landing-moon">
-          <div className="landing-moon-crescent" />
+          <svg viewBox="0 0 230 250" fill="none" xmlns="http://www.w3.org/2000/svg" className="landing-moon-svg">
+            <defs>
+              <filter id="moon-glow" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur stdDeviation="9" result="blur" />
+                <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+              <mask id="moon-mask">
+                <circle cx="115" cy="125" r="88" fill="white" />
+                <circle cx="85" cy="112" r="78" fill="black" />
+              </mask>
+            </defs>
+            {/* Halo rings */}
+            <circle cx="115" cy="125" r="105" fill="rgba(246,196,83,0.05)" />
+            <circle cx="115" cy="125" r="94" fill="rgba(246,196,83,0.07)" />
+            {/* Crescent */}
+            <circle cx="115" cy="125" r="88" fill="#F6C453" mask="url(#moon-mask)" filter="url(#moon-glow)" />
+          </svg>
         </div>
       </section>
       <section className="landing-features">

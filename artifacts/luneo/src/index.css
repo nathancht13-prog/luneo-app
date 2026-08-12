@@ -98,10 +98,7 @@ button, input, textarea, select { font: inherit; } button { cursor: pointer; } a
 .feature-card:hover svg { transform:translateY(-2px) rotate(-6deg); }
 .feature-card h3 { margin:0 0 8px; font-family:var(--app-font-serif); color:#24345c; font-size:19px; }
 .feature-card p { margin:0; color:#6c7488; font-size:13px; line-height:1.55; }
-.shooting-star { position:absolute; width:2px; height:2px; border-radius:50%; background:#fff; opacity:0; animation:shoot 8s ease-in infinite; }
-.shooting-star:before { content:''; position:absolute; top:50%; right:0; width:80px; height:1px; background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.85)); transform:translateY(-50%); }
-@keyframes shoot { 0% { transform:translate(0,0); opacity:0; } 4% { opacity:1; } 16% { transform:translate(-160px,100px); opacity:0; } 100% { transform:translate(-160px,100px); opacity:0; } }
-@media (prefers-reduced-motion: reduce) { .shooting-star { animation:none; opacity:0; } .feature-card, .feature-card svg { transition:none; } }
+@media (prefers-reduced-motion: reduce) { .feature-card, .feature-card svg { transition:none; } }
 .landing-footer { margin-top:auto; display:flex; align-items:center; justify-content:space-between; padding:26px clamp(20px,4vw,56px); max-width:1400px; margin-left:auto; margin-right:auto; width:100%; color:#8991a1; font-size:12px; }
 .mobile-nav { display:none; }
 @keyframes rise { from { opacity:0; transform:translateY(9px); } to { opacity:1; transform:none; } } @keyframes spin { to { transform:rotate(360deg); } }

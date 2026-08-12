@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import {
   ClerkProvider,
   SignIn,
@@ -129,25 +129,25 @@ const nav = [
 ];
 
 function LuneoMark({ size = 34 }: { size?: number }) {
+  const uid = useId().replace(/:/g, '');
   return (
-    <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="34" cy="32" r="22" fill="#F6C453" />
-      <circle cx="44" cy="26" r="18" fill="#1E3A8A" />
-      <circle cx="18" cy="14" r="2.5" fill="#F6C453" />
-      <circle cx="10" cy="28" r="1.8" fill="#F6C453" />
+    <svg width={size} height={size} viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <mask id={`lm-${uid}`}>
+          <rect width="36" height="36" fill="white" />
+          <circle cx="14" cy="12" r="11" fill="black" />
+        </mask>
+      </defs>
+      {/* Crescent: outer circle with cutout shifted upper-left */}
+      <circle cx="19" cy="18" r="14" fill="#F6C453" mask={`url(#lm-${uid})`} />
+      {/* Tiny star dot */}
+      <circle cx="31" cy="8" r="1.6" fill="#F6C453" opacity="0.65" />
     </svg>
   );
 }
 
 function LuneoMarkLight({ size = 34 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="34" cy="32" r="22" fill="#F6C453" />
-      <circle cx="44" cy="26" r="18" fill="#1e3a8a" />
-      <circle cx="18" cy="14" r="2.5" fill="#F6C453" />
-      <circle cx="10" cy="28" r="1.8" fill="#F6C453" />
-    </svg>
-  );
+  return <LuneoMark size={size} />;
 }
 
 function Logo({ light = false }: { light?: boolean }) {

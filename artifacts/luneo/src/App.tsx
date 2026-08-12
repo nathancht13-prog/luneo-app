@@ -151,8 +151,8 @@ function LuneoMark({ size = 34 }: { size?: number }) {
       {/* Happy closed eyes — arc strokes */}
       <path d="M 5.5 18 Q 7.5 15.8 9.5 18" stroke="#1E3A8A" strokeWidth="1.3" fill="none" strokeLinecap="round" />
       <path d="M 9.5 16.5 Q 11.5 14.3 13.5 16.5" stroke="#1E3A8A" strokeWidth="1.3" fill="none" strokeLinecap="round" />
-      {/* Smile */}
-      <path d="M 5.5 22.5 Q 9 26.5 13 23" stroke="#1E3A8A" strokeWidth="1.3" fill="none" strokeLinecap="round" />
+      {/* Smile — symmetric arc, same height on both ends */}
+      <path d="M 5 21.5 Q 8.5 25.5 12 21.5" stroke="#1E3A8A" strokeWidth="1.4" fill="none" strokeLinecap="round" />
       {/* Large 4-pointed star */}
       <path d={starPath(35, 14, 4)} fill="#F6C453" />
       {/* Small 4-pointed star */}

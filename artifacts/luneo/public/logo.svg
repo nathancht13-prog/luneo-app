@@ -1,10 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 40" fill="none">
   <defs>
     <mask id="m">
-      <rect width="36" height="36" fill="white"/>
-      <circle cx="14" cy="12" r="11" fill="black"/>
+      <rect width="48" height="40" fill="white"/>
+      <circle cx="26" cy="20" r="13.5" fill="black"/>
     </mask>
   </defs>
-  <circle cx="19" cy="18" r="14" fill="#F6C453" mask="url(#m)"/>
-  <circle cx="31" cy="8" r="1.6" fill="#F6C453" opacity="0.65"/>
+  <!-- Fat crescent body -->
+  <circle cx="16" cy="20" r="17" fill="#F6C453" mask="url(#m)"/>
+  <!-- Happy closed eyes -->
+  <path d="M 5.5 18 Q 7.5 15.8 9.5 18" stroke="#1E3A8A" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+  <path d="M 9.5 16.5 Q 11.5 14.3 13.5 16.5" stroke="#1E3A8A" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+  <!-- Smile -->
+  <path d="M 5.5 22.5 Q 9 26.5 13 23" stroke="#1E3A8A" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+  <!-- Large 4-pointed star -->
+  <path d="M35,10 L36.28,12.72 L39,14 L36.28,15.28 L35,18 L33.72,15.28 L31,14 L33.72,12.72 Z" fill="#F6C453"/>
+  <!-- Small 4-pointed star -->
+  <path d="M41,20.4 L41.83,22.17 L43.6,23 L41.83,23.83 L41,25.6 L40.17,23.83 L38.4,23 L40.17,22.17 Z" fill="#F6C453"/>
 </svg>

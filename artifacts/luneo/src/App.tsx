@@ -128,23 +128,35 @@ const nav = [
   { href: '/series', label: 'Aventures', icon: WandSparkles },
 ];
 
+// 4-pointed sparkle star path
+function starPath(cx: number, cy: number, r: number) {
+  const ir = r * 0.32;
+  return `M${cx},${cy - r} L${cx + ir},${cy - ir} L${cx + r},${cy} L${cx + ir},${cy + ir} L${cx},${cy + r} L${cx - ir},${cy + ir} L${cx - r},${cy} L${cx - ir},${cy - ir} Z`;
+}
+
 function LuneoMark({ size = 34 }: { size?: number }) {
   const uid = useId().replace(/:/g, '');
+  // viewBox 0 0 48 40 — crescent on left, stars on right
+  // Outer circle: cx=16 cy=20 r=17  Cutout: cx=26 cy=20 r=13.5
   return (
-    <svg width={size} height={size} viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={size} height={size * 40 / 48} viewBox="0 0 48 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <mask id={`lm-${uid}`}>
-          <rect width="36" height="36" fill="white" />
-          <circle cx="14" cy="12" r="11" fill="black" />
+          <rect width="48" height="40" fill="white" />
+          <circle cx="26" cy="20" r="13.5" fill="black" />
         </mask>
       </defs>
-      {/* Crescent: outer circle with cutout shifted upper-left */}
-      <circle cx="19" cy="18" r="14" fill="#F6C453" mask={`url(#lm-${uid})`} />
-      {/* Eyes */}
-      <circle cx="24.5" cy="16.5" r="1.1" fill="#1E3A8A" />
-      <circle cx="28.5" cy="15.5" r="1.1" fill="#1E3A8A" />
+      {/* Fat crescent body */}
+      <circle cx="16" cy="20" r="17" fill="#F6C453" mask={`url(#lm-${uid})`} />
+      {/* Happy closed eyes — arc strokes */}
+      <path d="M 5.5 18 Q 7.5 15.8 9.5 18" stroke="#1E3A8A" strokeWidth="1.3" fill="none" strokeLinecap="round" />
+      <path d="M 9.5 16.5 Q 11.5 14.3 13.5 16.5" stroke="#1E3A8A" strokeWidth="1.3" fill="none" strokeLinecap="round" />
       {/* Smile */}
-      <path d="M 23.5 21 Q 26.5 24.5 30 21.5" stroke="#1E3A8A" strokeWidth="1.3" fill="none" strokeLinecap="round" />
+      <path d="M 5.5 22.5 Q 9 26.5 13 23" stroke="#1E3A8A" strokeWidth="1.3" fill="none" strokeLinecap="round" />
+      {/* Large 4-pointed star */}
+      <path d={starPath(35, 14, 4)} fill="#F6C453" />
+      {/* Small 4-pointed star */}
+      <path d={starPath(41, 23, 2.6)} fill="#F6C453" />
     </svg>
   );
 }

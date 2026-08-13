@@ -19,6 +19,7 @@ import {
   useParams,
 } from 'wouter';
 import { QueryClient, QueryClientProvider, useQueryClient } from '@tanstack/react-query';
+import { WhopCheckoutEmbed } from '@whop/checkout/react';
 import {
   BookOpen,
   Check,
@@ -122,7 +123,7 @@ function useLuneo() {
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
-const WHOP_CHECKOUT_URL = 'https://whop.com/checkout/plan_pkLxmpE0feqFB';
+const WHOP_PLAN_ID = 'plan_pkLxmpE0feqFB';
 function previewParagraphCount(total: number) {
   return Math.max(1, Math.ceil(total / 4));
 }
@@ -511,9 +512,22 @@ function StoryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
         <div className="finish-line">Aperçu — abonne-toi pour lire la suite</div>
       </div>
       <div className="result-actions">
-        <a href={WHOP_CHECKOUT_URL} className="button-primary" data-testid="button-story-continue-paywall">
+        <Link href="/subscribe" className="button-primary" data-testid="button-story-continue-paywall">
           <WandSparkles size={16} />Lire la suite
-        </a>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function SubscribePage() {
+  return (
+    <div className="page wizard">
+      <div className="eyebrow">Débloquer Lunéo</div>
+      <h1 className="page-title">S'abonner</h1>
+      <p className="page-intro">Accès illimité à la création d'histoires personnalisées pour votre enfant.</p>
+      <div className="wizard-card" style={{ padding: 0, overflow: 'hidden' }}>
+        <WhopCheckoutEmbed planId={WHOP_PLAN_ID} theme="light" returnUrl={`${window.location.origin}/`} />
       </div>
     </div>
   );
@@ -577,7 +591,7 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
         </div>
         <div className="story-content">{result.paragraphs.slice(0, previewParagraphCount(result.paragraphs.length)).map((p, i) => <p key={i}>{p}</p>)}</div>
         <div className="result-actions">
-          <a href={WHOP_CHECKOUT_URL} className="button-primary" data-testid="button-continue-story-paywall"><BookOpen size={16} />Continuer l'histoire</a>
+          <Link href="/subscribe" className="button-primary" data-testid="button-continue-story-paywall"><BookOpen size={16} />Continuer l'histoire</Link>
           <Link href="/create" className="button-ghost" data-testid="button-create-another">Créer une autre</Link>
         </div>
       </div>
@@ -800,6 +814,9 @@ function AppRoutes() {
         <Route path="/sign-up/*?" component={SignUpPage} />
         <Route path="/create">
           <Protected><Shell luneo={luneo}><CreatePage luneo={luneo} /></Shell></Protected>
+        </Route>
+        <Route path="/subscribe">
+          <Protected><Shell luneo={luneo}><SubscribePage /></Shell></Protected>
         </Route>
         <Route path="/library">
           <Protected><Shell luneo={luneo}><LibraryPage luneo={luneo} /></Shell></Protected>

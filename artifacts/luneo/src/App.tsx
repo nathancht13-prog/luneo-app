@@ -122,6 +122,10 @@ function useLuneo() {
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
+const WHOP_CHECKOUT_URL = 'https://whop.com/checkout/plan_pkLxmpE0feqFB';
+function previewParagraphCount(total: number) {
+  return Math.max(1, Math.ceil(total / 4));
+}
 const nav = [
   { href: '/', label: 'Accueil', icon: Home },
   { href: '/library', label: 'Bibliothèque', icon: Library },
@@ -502,19 +506,14 @@ function StoryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
       <div className="book-illustration" />
       <div className="book-page">
         <div className="story-content">
-          {story.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+          {story.paragraphs.slice(0, previewParagraphCount(story.paragraphs.length)).map((p, i) => <p key={i}>{p}</p>)}
         </div>
-        <div className="finish-line">{story.finished ? 'Histoire terminée' : 'Fin de l\'histoire'}</div>
+        <div className="finish-line">Aperçu — abonne-toi pour lire la suite</div>
       </div>
       <div className="result-actions">
-        <button className="button-primary" onClick={() => luneo.updateStory(story.id, { finished: !story.finished })} data-testid="button-finish-story">
-          <Check size={16} />{story.finished ? 'Marquer à relire' : 'J\'ai terminé'}
-        </button>
-        {story.seriesId && (
-          <Link href="/series/leoflamme" className="button-ghost" data-testid="button-continue-series">
-            <WandSparkles size={16} />Continuer l'aventure
-          </Link>
-        )}
+        <a href={WHOP_CHECKOUT_URL} target="_blank" rel="noopener noreferrer" className="button-primary" data-testid="button-story-continue-paywall">
+          <WandSparkles size={16} />Lire la suite
+        </a>
       </div>
     </div>
   );
@@ -576,9 +575,9 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
           <div className="eyebrow">Une nouvelle histoire pour {luneo.state.child.name || 'votre enfant'}</div>
           <h2>{result.title}</h2>
         </div>
-        <div className="story-content">{result.paragraphs.map((p, i) => <p key={i}>{p}</p>)}</div>
+        <div className="story-content">{result.paragraphs.slice(0, previewParagraphCount(result.paragraphs.length)).map((p, i) => <p key={i}>{p}</p>)}</div>
         <div className="result-actions">
-          <Link href={`/story/${result.id}`} className="button-primary" data-testid="button-read-generated"><BookOpen size={16} />Lire l'histoire</Link>
+          <a href={WHOP_CHECKOUT_URL} target="_blank" rel="noopener noreferrer" className="button-primary" data-testid="button-continue-story-paywall"><BookOpen size={16} />Continuer l'histoire</a>
           <Link href="/create" className="button-ghost" data-testid="button-create-another">Créer une autre</Link>
         </div>
       </div>

@@ -511,7 +511,7 @@ function StoryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
         <div className="finish-line">Aperçu — abonne-toi pour lire la suite</div>
       </div>
       <div className="result-actions">
-        <a href={WHOP_CHECKOUT_URL} target="_blank" rel="noopener noreferrer" className="button-primary" data-testid="button-story-continue-paywall">
+        <a href={WHOP_CHECKOUT_URL} className="button-primary" data-testid="button-story-continue-paywall">
           <WandSparkles size={16} />Lire la suite
         </a>
       </div>
@@ -577,7 +577,7 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
         </div>
         <div className="story-content">{result.paragraphs.slice(0, previewParagraphCount(result.paragraphs.length)).map((p, i) => <p key={i}>{p}</p>)}</div>
         <div className="result-actions">
-          <a href={WHOP_CHECKOUT_URL} target="_blank" rel="noopener noreferrer" className="button-primary" data-testid="button-continue-story-paywall"><BookOpen size={16} />Continuer l'histoire</a>
+          <a href={WHOP_CHECKOUT_URL} className="button-primary" data-testid="button-continue-story-paywall"><BookOpen size={16} />Continuer l'histoire</a>
           <Link href="/create" className="button-ghost" data-testid="button-create-another">Créer une autre</Link>
         </div>
       </div>

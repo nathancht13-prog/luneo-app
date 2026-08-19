@@ -176,57 +176,70 @@ function Protected({ children }: { children: React.ReactNode }) {
   );
 }
 
-function StepArrow({ flip = false }: { flip?: boolean }) {
+function StepArrow() {
   return (
-    <svg
-      className={`step-arrow${flip ? ' flip' : ''}`}
-      viewBox="0 0 200 110"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <circle cx="16" cy="12" r="3.5" fill="#d9a233" />
-      <path d="M16 22 C 16 84, 178 34, 180 92" stroke="#d9a233" strokeWidth="2.25" strokeDasharray="1 9" strokeLinecap="round" />
-      <path d="M167 82 C 172 88, 176 92, 180 96 C 174 96, 168 97, 162 99" stroke="#d9a233" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    <svg className="step-arrow" viewBox="0 0 40 90" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="20" cy="6" r="3" fill="#d9a233" />
+      <path d="M20 12 C 20 40, 16 60, 20 78" stroke="#d9a233" strokeWidth="2.25" strokeDasharray="1 9" strokeLinecap="round" />
+      <path d="M13 71 L20 80 L27 71" stroke="#d9a233" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" fill="none" />
     </svg>
   );
 }
 
 function DreamingChildArt() {
   return (
-    <svg viewBox="0 0 100 100" width="70" height="70" aria-hidden="true">
+    <svg viewBox="0 0 100 110" width="118" height="130" aria-hidden="true">
+      <path d="M14 20 l1.5 -1.5 l1.5 1.5 l-1.5 1.5 z" fill="#f6c453" opacity="0.7" />
+      <path d="M10 34 l1 -1 l1 1 l-1 1 z" fill="#f6c453" opacity="0.5" />
       <circle cx="60" cy="46" r="2" fill="#1e3a8a" opacity="0.4" />
       <circle cx="64" cy="38" r="3" fill="#1e3a8a" opacity="0.4" />
-      <ellipse cx="70" cy="22" rx="22" ry="16" fill="#fff" stroke="#f6c453" strokeWidth="2" />
-      <path d="M64 22 l4.5 -4.5 l4.5 4.5 l-4.5 4.5 z" fill="#f6c453" />
-      <circle cx="80" cy="16" r="2.2" fill="#f6c453" />
-      <ellipse cx="46" cy="94" rx="24" ry="5" fill="#1e3a8a" opacity="0.08" />
-      <path d="M28 92 C28 68 32 56 46 56 C60 56 64 68 64 92 Z" fill="#1e3a8a" />
-      <path d="M38 58 L46 66 L54 58" fill="none" stroke="#f6c453" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx="46" cy="42" r="17" fill="#f2c49a" />
-      <path d="M28 40 C28 26 35 20 46 20 C57 20 64 26 64 40 C58 34 52 32 46 32 C40 32 34 34 28 40 Z" fill="#5b3a29" />
-      <path d="M39 44 q3 3 6 0" stroke="#8a5a3a" strokeWidth="1.6" fill="none" strokeLinecap="round" />
-      <path d="M47 44 q3 3 6 0" stroke="#8a5a3a" strokeWidth="1.6" fill="none" strokeLinecap="round" />
-      <path d="M41 51 q5 3 10 0" stroke="#8a5a3a" strokeWidth="1.6" fill="none" strokeLinecap="round" />
+      <ellipse cx="70" cy="22" rx="24" ry="17" fill="#fff" stroke="#f6c453" strokeWidth="2" />
+      <circle cx="63" cy="18" r="5" fill="#fde9b8" />
+      <path d="M60 18 a5 5 0 1 0 5 -5 a4 4 0 1 1 -5 5 Z" fill="#f6c453" />
+      <path d="M74 16 l2 -2 l2 2 l-2 2 z" fill="#f6c453" />
+      <path d="M78 26 l1.3 -1.3 l1.3 1.3 l-1.3 1.3 z" fill="#f6c453" />
+      <ellipse cx="46" cy="104" rx="27" ry="5" fill="#1e3a8a" opacity="0.08" />
+      <path d="M26 102 C26 76 31 62 46 62 C61 62 66 76 66 102 Z" fill="#1e3a8a" />
+      <path d="M46 62 C56 62 61 72 63 84 C58 78 52 74 46 74 Z" fill="#274a9e" opacity="0.6" />
+      <path d="M37 64 L46 73 L55 64" fill="none" stroke="#f6c453" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M26 102 C30 92 62 92 66 102 Z" fill="#f6c453" opacity="0.9" />
+      <circle cx="46" cy="46" r="19" fill="#f2c49a" />
+      <ellipse cx="35" cy="50" rx="4" ry="2.5" fill="#eda183" opacity="0.5" />
+      <ellipse cx="57" cy="50" rx="4" ry="2.5" fill="#eda183" opacity="0.5" />
+      <path d="M26 44 C26 28 34 21 46 21 C58 21 66 28 66 44 C59 37 53 35 46 35 C39 35 33 37 26 44 Z" fill="#5b3a29" />
+      <path d="M34 24 C32 27 31 30 31 33" stroke="#4a2f22" strokeWidth="1.2" fill="none" strokeLinecap="round" />
+      <path d="M58 24 C60 27 61 30 61 33" stroke="#4a2f22" strokeWidth="1.2" fill="none" strokeLinecap="round" />
+      <path d="M38 48 q3.5 3.5 7 0" stroke="#8a5a3a" strokeWidth="1.8" fill="none" strokeLinecap="round" />
+      <path d="M47 48 q3.5 3.5 7 0" stroke="#8a5a3a" strokeWidth="1.8" fill="none" strokeLinecap="round" />
+      <path d="M40 56 q6 3.5 12 0" stroke="#8a5a3a" strokeWidth="1.8" fill="none" strokeLinecap="round" />
     </svg>
   );
 }
 
 function PencilWritingArt() {
   return (
-    <svg viewBox="0 0 100 100" width="70" height="70" aria-hidden="true">
-      <path d="M20 70 C20 68 22 66 28 66 L48 66 L48 78 L28 78 C22 78 20 76 20 74 Z" fill="#fff" stroke="#e6d6a8" strokeWidth="1.5" />
-      <path d="M76 70 C76 68 74 66 68 66 L48 66 L48 78 L68 78 C74 78 76 76 76 74 Z" fill="#fff" stroke="#e6d6a8" strokeWidth="1.5" />
-      <line x1="48" y1="66" x2="48" y2="78" stroke="#e6d6a8" strokeWidth="1.5" />
-      <line x1="26" y1="70" x2="42" y2="70" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
-      <line x1="26" y1="74" x2="40" y2="74" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M52 40 l2.5 -2.5 l2.5 2.5 l-2.5 2.5 z" fill="#f6c453" />
-      <circle cx="62" cy="35" r="1.8" fill="#f6c453" />
-      <g transform="rotate(48 50 50)">
-        <rect x="44" y="16" width="10" height="46" rx="3" fill="#1e3a8a" />
-        <path d="M44 16 L54 16 L49 6 Z" fill="#f2c49a" />
-        <rect x="44" y="58" width="10" height="8" rx="2" fill="#f6c453" />
-        <rect x="44" y="30" width="10" height="4" fill="#fff" opacity="0.5" />
+    <svg viewBox="0 0 100 100" width="118" height="118" aria-hidden="true">
+      <ellipse cx="48" cy="80" rx="34" ry="5" fill="#1e3a8a" opacity="0.06" />
+      <path d="M14 68 C14 65 17 63 24 63 L48 63 L48 80 L24 80 C17 80 14 78 14 75 Z" fill="#fff" stroke="#e6d6a8" strokeWidth="1.5" />
+      <path d="M82 68 C82 65 79 63 72 63 L48 63 L48 80 L72 80 C79 80 82 78 82 75 Z" fill="#fff" stroke="#e6d6a8" strokeWidth="1.5" />
+      <line x1="48" y1="63" x2="48" y2="80" stroke="#e6d6a8" strokeWidth="1.5" />
+      <line x1="20" y1="68" x2="42" y2="68" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
+      <line x1="20" y1="72" x2="40" y2="72" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
+      <line x1="20" y1="76" x2="38" y2="76" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M54 68 q4 -3 8 0 q4 3 8 0" stroke="#1e3a8a" strokeWidth="1.6" fill="none" strokeLinecap="round" opacity="0.55" />
+      <path d="M54 73 q3 -2 6 0" stroke="#1e3a8a" strokeWidth="1.6" fill="none" strokeLinecap="round" opacity="0.35" />
+      <path d="M58 34 l3 -3 l3 3 l-3 3 z" fill="#f6c453" />
+      <circle cx="72" cy="27" r="2.2" fill="#f6c453" />
+      <circle cx="66" cy="46" r="1.6" fill="#f6c453" opacity="0.8" />
+      <g transform="rotate(48 55 55)">
+        <rect x="48" y="8" width="12" height="52" rx="3.5" fill="#1e3a8a" />
+        <rect x="48" y="8" width="4" height="52" fill="#fff" opacity="0.18" />
+        <path d="M48 8 L60 8 L54 -4 Z" fill="#f2c49a" />
+        <path d="M54 -4 L57 4 L51 4 Z" fill="#2a2a2a" />
+        <rect x="48" y="60" width="12" height="4" fill="#ccc" />
+        <rect x="48" y="64" width="12" height="9" rx="2.5" fill="#f6c453" />
+        <line x1="48" y1="24" x2="60" y2="24" stroke="#16255c" strokeWidth="1" />
+        <line x1="48" y1="30" x2="60" y2="30" stroke="#16255c" strokeWidth="1" />
       </g>
     </svg>
   );
@@ -234,22 +247,35 @@ function PencilWritingArt() {
 
 function FamilyReadingArt() {
   return (
-    <svg viewBox="0 0 100 100" width="70" height="70" aria-hidden="true">
-      <ellipse cx="50" cy="92" rx="34" ry="5" fill="#1e3a8a" opacity="0.08" />
-      <path d="M12 90 C12 76 14 66 22 66 C30 66 32 76 32 90 Z" fill="#f6c453" />
-      <circle cx="22" cy="58" r="10" fill="#f2c49a" />
-      <path d="M12 57 C12 48 16 44 22 44 C28 44 32 48 32 57 C28 53 25 52 22 52 C19 52 16 53 12 57 Z" fill="#5b3a29" />
-      <path d="M68 90 C68 76 70 66 78 66 C86 66 88 76 88 90 Z" fill="#7fa5c9" />
-      <circle cx="78" cy="58" r="10" fill="#f2c49a" />
-      <path d="M68 57 C68 48 72 44 78 44 C84 44 88 48 88 57 C86 54 82 53 78 53 C75 53 71 54 68 57 Z" fill="#1e3a8a" />
-      <path d="M33 92 C33 62 38 46 50 46 C62 46 67 62 67 92 Z" fill="#1e3a8a" />
-      <circle cx="50" cy="34" r="14" fill="#f2c49a" />
-      <path d="M36 32 C36 20 42 14 50 14 C58 14 64 20 64 32 C59 26 55 24 50 24 C45 24 41 26 36 32 Z" fill="#3a2a1f" />
-      <path d="M50 68 L50 90 L26 86 C24 86 23 84 23 82 L23 70 C23 68 24 67 26 67 Z" fill="#fff" stroke="#e6d6a8" strokeWidth="1.5" />
-      <path d="M50 68 L50 90 L74 86 C76 86 77 84 77 82 L77 70 C77 68 76 67 74 67 Z" fill="#fff" stroke="#e6d6a8" strokeWidth="1.5" />
-      <line x1="50" y1="68" x2="50" y2="90" stroke="#e6d6a8" strokeWidth="1.5" />
-      <line x1="29" y1="74" x2="44" y2="72" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
-      <line x1="29" y1="80" x2="42" y2="78" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
+    <svg viewBox="0 0 100 100" width="118" height="118" aria-hidden="true">
+      <ellipse cx="50" cy="96" rx="38" ry="5" fill="#1e3a8a" opacity="0.08" />
+      <path d="M8 94 C8 78 10 67 20 67 C30 67 32 78 32 94 Z" fill="#f6c453" />
+      <path d="M20 67 C26 67 29 74 31 82 C27 77 23 74 20 74 Z" fill="#d9a233" opacity="0.5" />
+      <circle cx="20" cy="58" r="11" fill="#f2c49a" />
+      <path d="M9 57 C9 47 14 42 20 42 C26 42 31 47 31 57 C27 52 24 51 20 51 C16 51 13 52 9 57 Z" fill="#5b3a29" />
+      <path d="M15 60 q2.5 2.5 5 0" stroke="#8a5a3a" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      <path d="M21 60 q2.5 2.5 5 0" stroke="#8a5a3a" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      <path d="M68 94 C68 78 70 67 80 67 C90 67 92 78 92 94 Z" fill="#7fa5c9" />
+      <path d="M80 67 C86 67 89 74 91 82 C87 77 83 74 80 74 Z" fill="#5c85ad" opacity="0.5" />
+      <circle cx="80" cy="58" r="11" fill="#f2c49a" />
+      <path d="M69 57 C69 47 74 42 80 42 C86 42 91 47 91 57 C88 53 83 52 80 52 C77 52 72 53 69 57 Z" fill="#1e3a8a" />
+      <path d="M75 60 q2.5 2.5 5 0" stroke="#8a5a3a" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      <path d="M81 60 q2.5 2.5 5 0" stroke="#8a5a3a" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      <path d="M30 96 C30 62 36 44 50 44 C64 44 70 62 70 96 Z" fill="#1e3a8a" />
+      <path d="M50 44 C60 44 66 58 68 76 C62 68 56 62 50 62 Z" fill="#274a9e" opacity="0.55" />
+      <circle cx="50" cy="31" r="15" fill="#f2c49a" />
+      <ellipse cx="38" cy="35" rx="4" ry="2.5" fill="#eda183" opacity="0.5" />
+      <ellipse cx="62" cy="35" rx="4" ry="2.5" fill="#eda183" opacity="0.5" />
+      <path d="M35 29 C35 16 41 9 50 9 C59 9 65 16 65 29 C60 22 55 20 50 20 C45 20 40 22 35 29 Z" fill="#3a2a1f" />
+      <path d="M43 33 q3 3 6 0" stroke="#8a5a3a" strokeWidth="1.6" fill="none" strokeLinecap="round" />
+      <path d="M51 33 q3 3 6 0" stroke="#8a5a3a" strokeWidth="1.6" fill="none" strokeLinecap="round" />
+      <path d="M44 39 q6 3 12 0" stroke="#8a5a3a" strokeWidth="1.6" fill="none" strokeLinecap="round" />
+      <path d="M50 70 L50 92 L24 88 C22 88 21 86 21 84 L21 72 C21 70 22 69 24 69 Z" fill="#fff" stroke="#e6d6a8" strokeWidth="1.5" />
+      <path d="M50 70 L50 92 L76 88 C78 88 79 86 79 84 L79 72 C79 70 78 69 76 69 Z" fill="#fff" stroke="#e6d6a8" strokeWidth="1.5" />
+      <line x1="50" y1="70" x2="50" y2="92" stroke="#e6d6a8" strokeWidth="1.5" />
+      <line x1="27" y1="76" x2="43" y2="74" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
+      <line x1="27" y1="82" x2="41" y2="80" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M50 4 C48 1 43 2 43 6 C43 9 50 14 50 14 C50 14 57 9 57 6 C57 2 52 1 50 4 Z" fill="#f6c453" opacity="0.85" />
     </svg>
   );
 }
@@ -305,7 +331,7 @@ function LandingPage() {
           <h2>Trois étapes vers le rituel du soir</h2>
         </div>
 
-        <div className="how-step-row left">
+        <div className="how-step-row">
           <div className="step-card">
             <div className="step-badge">1</div>
             <h3>Parlez-nous de votre enfant</h3>
@@ -320,9 +346,9 @@ function LandingPage() {
           <div className="step-illustration"><DreamingChildArt /></div>
         </div>
 
-        <div className="arrow-slot right"><StepArrow /></div>
+        <div className="arrow-slot"><StepArrow /></div>
 
-        <div className="how-step-row right">
+        <div className="how-step-row">
           <div className="step-illustration"><PencilWritingArt /></div>
           <div className="step-card">
             <div className="step-badge">2</div>
@@ -331,9 +357,9 @@ function LandingPage() {
           </div>
         </div>
 
-        <div className="arrow-slot left"><StepArrow flip /></div>
+        <div className="arrow-slot"><StepArrow /></div>
 
-        <div className="how-step-row left">
+        <div className="how-step-row">
           <div className="step-card">
             <div className="step-badge">3</div>
             <h3>Savourez le moment ensemble</h3>

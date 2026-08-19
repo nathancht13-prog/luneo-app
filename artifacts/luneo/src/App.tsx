@@ -30,6 +30,7 @@ import {
   Heart,
   Home,
   Library,
+  PenLine,
   LogOut,
   Plus,
   Search,
@@ -185,8 +186,9 @@ function StepArrow({ flip = false }: { flip?: boolean }) {
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      <path d="M20 14 C 20 80, 170 40, 176 96" stroke="#d9cba0" strokeWidth="2" strokeDasharray="6 7" strokeLinecap="round" />
-      <path d="M164 88 L177 98 L166 106" stroke="#d9cba0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <circle cx="16" cy="12" r="3.5" fill="#d9a233" />
+      <path d="M16 22 C 16 84, 178 34, 180 92" stroke="#d9a233" strokeWidth="2.25" strokeDasharray="1 9" strokeLinecap="round" />
+      <path d="M167 82 C 172 88, 176 92, 180 96 C 174 96, 168 97, 162 99" stroke="#d9a233" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" fill="none" />
     </svg>
   );
 }
@@ -254,11 +256,13 @@ function LandingPage() {
               <li>Son compagnon — un animal qui lui ressemble (chien, chat, dragon…)</li>
             </ul>
           </div>
+          <div className="step-illustration"><PenLine size={32} /></div>
         </div>
 
         <div className="arrow-slot right"><StepArrow /></div>
 
         <div className="how-step-row right">
+          <div className="step-illustration"><WandSparkles size={32} /></div>
           <div className="step-card">
             <div className="step-badge">2</div>
             <h3>Laissez la magie opérer</h3>
@@ -274,6 +278,7 @@ function LandingPage() {
             <h3>Savourez le moment ensemble</h3>
             <p>Lisez l'histoire à voix haute, blottis l'un contre l'autre — et retrouvez une nouvelle aventure prête chaque soir.</p>
           </div>
+          <div className="step-illustration"><Heart size={32} /></div>
         </div>
       </section>
       <footer className="landing-footer">

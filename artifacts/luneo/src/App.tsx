@@ -176,111 +176,6 @@ function Protected({ children }: { children: React.ReactNode }) {
   );
 }
 
-function StepsConnector() {
-  return (
-    <svg className="steps-connector" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M9.56 18.93 C 0 34, 45 28, 35 40 S 68 48, 60.67 53.92" stroke="#1e3a8a" strokeWidth="0.35" strokeLinecap="round" />
-      <path d="M55 50 L60.67 53.92 L58.5 59" stroke="#1e3a8a" strokeWidth="0.35" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M60.67 57.32 C 70 70, 26 66, 35 78 S 3 80, 9.56 84.50" stroke="#1e3a8a" strokeWidth="0.35" strokeLinecap="round" />
-      <path d="M15 81 L9.56 84.50 L12 90" stroke="#1e3a8a" strokeWidth="0.35" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function DreamingChildArt() {
-  return (
-    <svg viewBox="0 0 100 110" width="118" height="130" aria-hidden="true">
-      <path d="M14 20 l1.5 -1.5 l1.5 1.5 l-1.5 1.5 z" fill="#f6c453" opacity="0.7" />
-      <path d="M10 34 l1 -1 l1 1 l-1 1 z" fill="#f6c453" opacity="0.5" />
-      <circle cx="60" cy="46" r="2" fill="#1e3a8a" opacity="0.4" />
-      <circle cx="64" cy="38" r="3" fill="#1e3a8a" opacity="0.4" />
-      <ellipse cx="70" cy="22" rx="24" ry="17" fill="#fff" stroke="#f6c453" strokeWidth="2" />
-      <circle cx="63" cy="18" r="5" fill="#fde9b8" />
-      <path d="M60 18 a5 5 0 1 0 5 -5 a4 4 0 1 1 -5 5 Z" fill="#f6c453" />
-      <path d="M74 16 l2 -2 l2 2 l-2 2 z" fill="#f6c453" />
-      <path d="M78 26 l1.3 -1.3 l1.3 1.3 l-1.3 1.3 z" fill="#f6c453" />
-      <ellipse cx="46" cy="104" rx="27" ry="5" fill="#1e3a8a" opacity="0.08" />
-      <path d="M26 102 C26 76 31 62 46 62 C61 62 66 76 66 102 Z" fill="#1e3a8a" />
-      <path d="M46 62 C56 62 61 72 63 84 C58 78 52 74 46 74 Z" fill="#274a9e" opacity="0.6" />
-      <path d="M37 64 L46 73 L55 64" fill="none" stroke="#f6c453" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M26 102 C30 92 62 92 66 102 Z" fill="#f6c453" opacity="0.9" />
-      <circle cx="46" cy="46" r="19" fill="#f2c49a" />
-      <ellipse cx="35" cy="50" rx="4" ry="2.5" fill="#eda183" opacity="0.5" />
-      <ellipse cx="57" cy="50" rx="4" ry="2.5" fill="#eda183" opacity="0.5" />
-      <path d="M26 44 C26 28 34 21 46 21 C58 21 66 28 66 44 C59 37 53 35 46 35 C39 35 33 37 26 44 Z" fill="#5b3a29" />
-      <path d="M34 24 C32 27 31 30 31 33" stroke="#4a2f22" strokeWidth="1.2" fill="none" strokeLinecap="round" />
-      <path d="M58 24 C60 27 61 30 61 33" stroke="#4a2f22" strokeWidth="1.2" fill="none" strokeLinecap="round" />
-      <path d="M38 48 q3.5 3.5 7 0" stroke="#8a5a3a" strokeWidth="1.8" fill="none" strokeLinecap="round" />
-      <path d="M47 48 q3.5 3.5 7 0" stroke="#8a5a3a" strokeWidth="1.8" fill="none" strokeLinecap="round" />
-      <path d="M40 56 q6 3.5 12 0" stroke="#8a5a3a" strokeWidth="1.8" fill="none" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function PencilWritingArt() {
-  return (
-    <svg viewBox="0 0 100 100" width="118" height="118" aria-hidden="true">
-      <ellipse cx="48" cy="80" rx="34" ry="5" fill="#1e3a8a" opacity="0.06" />
-      <path d="M14 68 C14 65 17 63 24 63 L48 63 L48 80 L24 80 C17 80 14 78 14 75 Z" fill="#fff" stroke="#e6d6a8" strokeWidth="1.5" />
-      <path d="M82 68 C82 65 79 63 72 63 L48 63 L48 80 L72 80 C79 80 82 78 82 75 Z" fill="#fff" stroke="#e6d6a8" strokeWidth="1.5" />
-      <line x1="48" y1="63" x2="48" y2="80" stroke="#e6d6a8" strokeWidth="1.5" />
-      <line x1="20" y1="68" x2="42" y2="68" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
-      <line x1="20" y1="72" x2="40" y2="72" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
-      <line x1="20" y1="76" x2="38" y2="76" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M54 68 q4 -3 8 0 q4 3 8 0" stroke="#1e3a8a" strokeWidth="1.6" fill="none" strokeLinecap="round" opacity="0.55" />
-      <path d="M54 73 q3 -2 6 0" stroke="#1e3a8a" strokeWidth="1.6" fill="none" strokeLinecap="round" opacity="0.35" />
-      <path d="M58 34 l3 -3 l3 3 l-3 3 z" fill="#f6c453" />
-      <circle cx="72" cy="27" r="2.2" fill="#f6c453" />
-      <circle cx="66" cy="46" r="1.6" fill="#f6c453" opacity="0.8" />
-      <g transform="rotate(48 55 55)">
-        <rect x="48" y="8" width="12" height="52" rx="3.5" fill="#1e3a8a" />
-        <rect x="48" y="8" width="4" height="52" fill="#fff" opacity="0.18" />
-        <path d="M48 8 L60 8 L54 -4 Z" fill="#f2c49a" />
-        <path d="M54 -4 L57 4 L51 4 Z" fill="#2a2a2a" />
-        <rect x="48" y="60" width="12" height="4" fill="#ccc" />
-        <rect x="48" y="64" width="12" height="9" rx="2.5" fill="#f6c453" />
-        <line x1="48" y1="24" x2="60" y2="24" stroke="#16255c" strokeWidth="1" />
-        <line x1="48" y1="30" x2="60" y2="30" stroke="#16255c" strokeWidth="1" />
-      </g>
-    </svg>
-  );
-}
-
-function FamilyReadingArt() {
-  return (
-    <svg viewBox="0 0 100 100" width="118" height="118" aria-hidden="true">
-      <ellipse cx="50" cy="96" rx="38" ry="5" fill="#1e3a8a" opacity="0.08" />
-      <path d="M8 94 C8 78 10 67 20 67 C30 67 32 78 32 94 Z" fill="#f6c453" />
-      <path d="M20 67 C26 67 29 74 31 82 C27 77 23 74 20 74 Z" fill="#d9a233" opacity="0.5" />
-      <circle cx="20" cy="58" r="11" fill="#f2c49a" />
-      <path d="M9 57 C9 47 14 42 20 42 C26 42 31 47 31 57 C27 52 24 51 20 51 C16 51 13 52 9 57 Z" fill="#5b3a29" />
-      <path d="M15 60 q2.5 2.5 5 0" stroke="#8a5a3a" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-      <path d="M21 60 q2.5 2.5 5 0" stroke="#8a5a3a" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-      <path d="M68 94 C68 78 70 67 80 67 C90 67 92 78 92 94 Z" fill="#7fa5c9" />
-      <path d="M80 67 C86 67 89 74 91 82 C87 77 83 74 80 74 Z" fill="#5c85ad" opacity="0.5" />
-      <circle cx="80" cy="58" r="11" fill="#f2c49a" />
-      <path d="M69 57 C69 47 74 42 80 42 C86 42 91 47 91 57 C88 53 83 52 80 52 C77 52 72 53 69 57 Z" fill="#1e3a8a" />
-      <path d="M75 60 q2.5 2.5 5 0" stroke="#8a5a3a" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-      <path d="M81 60 q2.5 2.5 5 0" stroke="#8a5a3a" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-      <path d="M30 96 C30 62 36 44 50 44 C64 44 70 62 70 96 Z" fill="#1e3a8a" />
-      <path d="M50 44 C60 44 66 58 68 76 C62 68 56 62 50 62 Z" fill="#274a9e" opacity="0.55" />
-      <circle cx="50" cy="31" r="15" fill="#f2c49a" />
-      <ellipse cx="38" cy="35" rx="4" ry="2.5" fill="#eda183" opacity="0.5" />
-      <ellipse cx="62" cy="35" rx="4" ry="2.5" fill="#eda183" opacity="0.5" />
-      <path d="M35 29 C35 16 41 9 50 9 C59 9 65 16 65 29 C60 22 55 20 50 20 C45 20 40 22 35 29 Z" fill="#3a2a1f" />
-      <path d="M43 33 q3 3 6 0" stroke="#8a5a3a" strokeWidth="1.6" fill="none" strokeLinecap="round" />
-      <path d="M51 33 q3 3 6 0" stroke="#8a5a3a" strokeWidth="1.6" fill="none" strokeLinecap="round" />
-      <path d="M44 39 q6 3 12 0" stroke="#8a5a3a" strokeWidth="1.6" fill="none" strokeLinecap="round" />
-      <path d="M50 70 L50 92 L24 88 C22 88 21 86 21 84 L21 72 C21 70 22 69 24 69 Z" fill="#fff" stroke="#e6d6a8" strokeWidth="1.5" />
-      <path d="M50 70 L50 92 L76 88 C78 88 79 86 79 84 L79 72 C79 70 78 69 76 69 Z" fill="#fff" stroke="#e6d6a8" strokeWidth="1.5" />
-      <line x1="50" y1="70" x2="50" y2="92" stroke="#e6d6a8" strokeWidth="1.5" />
-      <line x1="27" y1="76" x2="43" y2="74" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
-      <line x1="27" y1="82" x2="41" y2="80" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M50 4 C48 1 43 2 43 6 C43 9 50 14 50 14 C50 14 57 9 57 6 C57 2 52 1 50 4 Z" fill="#f6c453" opacity="0.85" />
-    </svg>
-  );
-}
-
 // ─── Landing page ─────────────────────────────────────────────────────────────
 function LandingPage() {
   return (
@@ -332,9 +227,7 @@ function LandingPage() {
           <h2>Trois étapes vers le rituel du soir</h2>
         </div>
 
-        <StepsConnector />
-
-        <div className="how-step-row">
+        <div className="steps-grid">
           <div className="step-card">
             <div className="step-badge">1</div>
             <h3>Parlez-nous de votre enfant</h3>
@@ -346,25 +239,83 @@ function LandingPage() {
               <li>Son compagnon — un animal qui lui ressemble (chien, chat, dragon…)</li>
             </ul>
           </div>
-          <div className="step-illustration"><DreamingChildArt /></div>
-        </div>
-
-        <div className="how-step-row">
-          <div className="step-illustration"><PencilWritingArt /></div>
           <div className="step-card">
             <div className="step-badge">2</div>
             <h3>Laissez la magie opérer</h3>
             <p>En quelques secondes, Luneo imagine une histoire unique où votre enfant est le héros, adaptée à son âge et à la durée choisie — 5-10 minutes ou 10-15 minutes.</p>
           </div>
-        </div>
-
-        <div className="how-step-row">
           <div className="step-card">
             <div className="step-badge">3</div>
             <h3>Savourez le moment ensemble</h3>
             <p>Lisez l'histoire à voix haute, blottis l'un contre l'autre — et retrouvez une nouvelle aventure prête chaque soir.</p>
           </div>
-          <div className="step-illustration"><FamilyReadingArt /></div>
+        </div>
+      </section>
+      <section className="landing-pricing">
+        <div className="landing-pricing-head">
+          <div className="eyebrow">Tarifs</div>
+          <h2>Un abonnement pour chaque famille</h2>
+        </div>
+        <div className="pricing-grid">
+          <div className="price-card">
+            <div className="price-name">Gratuit</div>
+            <div className="price-amount">0€ <span>/ toujours</span></div>
+            <p className="price-tagline">Pour découvrir Luneo, sans engagement.</p>
+            <ul className="price-features">
+              <li>Génération d'histoires illimitée</li>
+              <li>Aperçu de chaque histoire</li>
+              <li>1 profil enfant</li>
+            </ul>
+            <Link href="/sign-up" className="price-cta" data-testid="button-pricing-free">Commencer gratuitement</Link>
+          </div>
+          <div className="price-card featured">
+            <span className="price-badge">Le plus populaire</span>
+            <div className="price-name">Basique</div>
+            <div className="price-amount">4,99€ <span>/ mois</span></div>
+            <p className="price-tagline">Histoires complètes, à volonté.</p>
+            <ul className="price-features">
+              <li>Histoires complètes et illimitées</li>
+              <li>1 profil enfant</li>
+              <li>Durée 5-10 ou 10-15 minutes</li>
+              <li>Sans engagement, résiliable à tout moment</li>
+            </ul>
+            <Link href="/sign-up" className="price-cta" data-testid="button-pricing-basic">Choisir Basique</Link>
+          </div>
+          <div className="price-card">
+            <div className="price-name">Familiale</div>
+            <div className="price-amount">7,99€ <span>/ mois</span></div>
+            <p className="price-tagline">Pour toute la fratrie.</p>
+            <ul className="price-features">
+              <li>Tout Basique inclus</li>
+              <li>Jusqu'à 4 profils enfants</li>
+              <li>Idéal pour les familles nombreuses</li>
+            </ul>
+            <Link href="/sign-up" className="price-cta" data-testid="button-pricing-family">Choisir Familiale</Link>
+          </div>
+        </div>
+      </section>
+      <section className="landing-faq">
+        <div className="landing-faq-head">
+          <div className="eyebrow">Questions fréquentes</div>
+          <h2>Tout ce qu'il faut savoir</h2>
+        </div>
+        <div className="faq-list">
+          <details className="faq-item" open>
+            <summary>Puis-je annuler à tout moment ?</summary>
+            <p>Oui, sans engagement. Vous pouvez résilier votre abonnement en un clic depuis votre compte, à tout moment.</p>
+          </details>
+          <details className="faq-item">
+            <summary>Les histoires sont-elles adaptées à l'âge de mon enfant ?</summary>
+            <p>Oui, chaque histoire est générée en fonction de l'âge indiqué : vocabulaire, thèmes et longueur s'ajustent automatiquement.</p>
+          </details>
+          <details className="faq-item">
+            <summary>Que faites-vous des informations de mon enfant ?</summary>
+            <p>Elles servent uniquement à personnaliser les histoires (prénom, âge, passions). Elles ne sont jamais partagées ni revendues.</p>
+          </details>
+          <details className="faq-item">
+            <summary>Puis-je changer d'abonnement plus tard ?</summary>
+            <p>Bien sûr, vous pouvez passer de Basique à Familiale (ou inversement) à tout moment depuis votre compte.</p>
+          </details>
         </div>
       </section>
       <footer className="landing-footer">

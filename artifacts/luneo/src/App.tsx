@@ -176,12 +176,13 @@ function Protected({ children }: { children: React.ReactNode }) {
   );
 }
 
-function StepArrow() {
+function StepsConnector() {
   return (
-    <svg className="step-arrow" viewBox="0 0 40 90" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="20" cy="6" r="3" fill="#d9a233" />
-      <path d="M20 12 C 20 40, 16 60, 20 78" stroke="#d9a233" strokeWidth="2.25" strokeDasharray="1 9" strokeLinecap="round" />
-      <path d="M13 71 L20 80 L27 71" stroke="#d9a233" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    <svg className="steps-connector" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M9.56 18.93 C 0 34, 45 28, 35 40 S 68 48, 60.67 53.92" stroke="#1e3a8a" strokeWidth="0.35" strokeLinecap="round" />
+      <path d="M55 50 L60.67 53.92 L58.5 59" stroke="#1e3a8a" strokeWidth="0.35" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M60.67 57.32 C 70 70, 26 66, 35 78 S 3 80, 9.56 84.50" stroke="#1e3a8a" strokeWidth="0.35" strokeLinecap="round" />
+      <path d="M15 81 L9.56 84.50 L12 90" stroke="#1e3a8a" strokeWidth="0.35" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -331,6 +332,8 @@ function LandingPage() {
           <h2>Trois étapes vers le rituel du soir</h2>
         </div>
 
+        <StepsConnector />
+
         <div className="how-step-row">
           <div className="step-card">
             <div className="step-badge">1</div>
@@ -346,8 +349,6 @@ function LandingPage() {
           <div className="step-illustration"><DreamingChildArt /></div>
         </div>
 
-        <div className="arrow-slot"><StepArrow /></div>
-
         <div className="how-step-row">
           <div className="step-illustration"><PencilWritingArt /></div>
           <div className="step-card">
@@ -356,8 +357,6 @@ function LandingPage() {
             <p>En quelques secondes, Luneo imagine une histoire unique où votre enfant est le héros, adaptée à son âge et à la durée choisie — 5-10 minutes ou 10-15 minutes.</p>
           </div>
         </div>
-
-        <div className="arrow-slot"><StepArrow /></div>
 
         <div className="how-step-row">
           <div className="step-card">

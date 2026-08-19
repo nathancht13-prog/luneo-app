@@ -176,6 +176,21 @@ function Protected({ children }: { children: React.ReactNode }) {
   );
 }
 
+function StepArrow({ flip = false }: { flip?: boolean }) {
+  return (
+    <svg
+      className={`step-arrow${flip ? ' flip' : ''}`}
+      viewBox="0 0 200 110"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path d="M20 14 C 20 80, 170 40, 176 96" stroke="#d9cba0" strokeWidth="2" strokeDasharray="6 7" strokeLinecap="round" />
+      <path d="M164 88 L177 98 L166 106" stroke="#d9cba0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </svg>
+  );
+}
+
 // ─── Landing page ─────────────────────────────────────────────────────────────
 function LandingPage() {
   return (
@@ -221,21 +236,44 @@ function LandingPage() {
           </svg>
         </div>
       </section>
-      <section className="landing-features">
-        <div className="feature-card">
-          <Sparkles size={20} />
-          <h3>Votre enfant, héros de l'histoire</h3>
-          <p>Prénom, âge, passions : chaque histoire est écrite pour lui, et seulement pour lui.</p>
+      <section className="landing-steps">
+        <div className="landing-steps-head">
+          <div className="eyebrow">Comment ça marche</div>
+          <h2>Trois étapes vers le rituel du soir</h2>
         </div>
-        <div className="feature-card">
-          <WandSparkles size={20} />
-          <h3>Une nouvelle aventure chaque soir</h3>
-          <p>En quelques secondes, Luneo imagine une histoire douce et unique, prête à être lue.</p>
+
+        <div className="how-step-row left">
+          <div className="step-card">
+            <div className="step-badge">1</div>
+            <h3>Parlez-nous de votre enfant</h3>
+            <p>Quelques informations suffisent pour que l'histoire soit vraiment la sienne :</p>
+            <ul className="step-list">
+              <li>Prénom de l'enfant</li>
+              <li>Âge</li>
+              <li>Ses passions</li>
+              <li>Son compagnon — un animal qui lui ressemble (chien, chat, dragon…)</li>
+            </ul>
+          </div>
         </div>
-        <div className="feature-card">
-          <BookOpen size={20} />
-          <h3>Un vrai rituel du coucher</h3>
-          <p>Des histoires courtes et apaisantes, pensées pour accompagner le moment du coucher.</p>
+
+        <div className="arrow-slot right"><StepArrow /></div>
+
+        <div className="how-step-row right">
+          <div className="step-card">
+            <div className="step-badge">2</div>
+            <h3>Laissez la magie opérer</h3>
+            <p>En quelques secondes, Luneo imagine une histoire unique où votre enfant est le héros, adaptée à son âge et à la durée choisie — 5-10 minutes ou 10-15 minutes.</p>
+          </div>
+        </div>
+
+        <div className="arrow-slot left"><StepArrow flip /></div>
+
+        <div className="how-step-row left">
+          <div className="step-card">
+            <div className="step-badge">3</div>
+            <h3>Savourez le moment ensemble</h3>
+            <p>Lisez l'histoire à voix haute, blottis l'un contre l'autre — et retrouvez une nouvelle aventure prête chaque soir.</p>
+          </div>
         </div>
       </section>
       <footer className="landing-footer">

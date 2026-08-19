@@ -319,7 +319,6 @@ function LandingPage() {
         </div>
       </section>
       <footer className="landing-footer">
-        <Logo />
         <p>© {new Date().getFullYear()} Luneo</p>
       </footer>
     </div>

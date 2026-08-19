@@ -30,7 +30,6 @@ import {
   Heart,
   Home,
   Library,
-  PenLine,
   LogOut,
   Plus,
   Search,
@@ -193,6 +192,68 @@ function StepArrow({ flip = false }: { flip?: boolean }) {
   );
 }
 
+function DreamingChildArt() {
+  return (
+    <svg viewBox="0 0 100 100" width="70" height="70" aria-hidden="true">
+      <circle cx="60" cy="46" r="2" fill="#1e3a8a" opacity="0.4" />
+      <circle cx="64" cy="38" r="3" fill="#1e3a8a" opacity="0.4" />
+      <ellipse cx="70" cy="22" rx="22" ry="16" fill="#fff" stroke="#f6c453" strokeWidth="2" />
+      <path d="M64 22 l4.5 -4.5 l4.5 4.5 l-4.5 4.5 z" fill="#f6c453" />
+      <circle cx="80" cy="16" r="2.2" fill="#f6c453" />
+      <ellipse cx="46" cy="94" rx="24" ry="5" fill="#1e3a8a" opacity="0.08" />
+      <path d="M28 92 C28 68 32 56 46 56 C60 56 64 68 64 92 Z" fill="#1e3a8a" />
+      <path d="M38 58 L46 66 L54 58" fill="none" stroke="#f6c453" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="46" cy="42" r="17" fill="#f2c49a" />
+      <path d="M28 40 C28 26 35 20 46 20 C57 20 64 26 64 40 C58 34 52 32 46 32 C40 32 34 34 28 40 Z" fill="#5b3a29" />
+      <path d="M39 44 q3 3 6 0" stroke="#8a5a3a" strokeWidth="1.6" fill="none" strokeLinecap="round" />
+      <path d="M47 44 q3 3 6 0" stroke="#8a5a3a" strokeWidth="1.6" fill="none" strokeLinecap="round" />
+      <path d="M41 51 q5 3 10 0" stroke="#8a5a3a" strokeWidth="1.6" fill="none" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function PencilWritingArt() {
+  return (
+    <svg viewBox="0 0 100 100" width="70" height="70" aria-hidden="true">
+      <path d="M20 70 C20 68 22 66 28 66 L48 66 L48 78 L28 78 C22 78 20 76 20 74 Z" fill="#fff" stroke="#e6d6a8" strokeWidth="1.5" />
+      <path d="M76 70 C76 68 74 66 68 66 L48 66 L48 78 L68 78 C74 78 76 76 76 74 Z" fill="#fff" stroke="#e6d6a8" strokeWidth="1.5" />
+      <line x1="48" y1="66" x2="48" y2="78" stroke="#e6d6a8" strokeWidth="1.5" />
+      <line x1="26" y1="70" x2="42" y2="70" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
+      <line x1="26" y1="74" x2="40" y2="74" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M52 40 l2.5 -2.5 l2.5 2.5 l-2.5 2.5 z" fill="#f6c453" />
+      <circle cx="62" cy="35" r="1.8" fill="#f6c453" />
+      <g transform="rotate(48 50 50)">
+        <rect x="44" y="16" width="10" height="46" rx="3" fill="#1e3a8a" />
+        <path d="M44 16 L54 16 L49 6 Z" fill="#f2c49a" />
+        <rect x="44" y="58" width="10" height="8" rx="2" fill="#f6c453" />
+        <rect x="44" y="30" width="10" height="4" fill="#fff" opacity="0.5" />
+      </g>
+    </svg>
+  );
+}
+
+function FamilyReadingArt() {
+  return (
+    <svg viewBox="0 0 100 100" width="70" height="70" aria-hidden="true">
+      <ellipse cx="50" cy="92" rx="34" ry="5" fill="#1e3a8a" opacity="0.08" />
+      <path d="M12 90 C12 76 14 66 22 66 C30 66 32 76 32 90 Z" fill="#f6c453" />
+      <circle cx="22" cy="58" r="10" fill="#f2c49a" />
+      <path d="M12 57 C12 48 16 44 22 44 C28 44 32 48 32 57 C28 53 25 52 22 52 C19 52 16 53 12 57 Z" fill="#5b3a29" />
+      <path d="M68 90 C68 76 70 66 78 66 C86 66 88 76 88 90 Z" fill="#7fa5c9" />
+      <circle cx="78" cy="58" r="10" fill="#f2c49a" />
+      <path d="M68 57 C68 48 72 44 78 44 C84 44 88 48 88 57 C86 54 82 53 78 53 C75 53 71 54 68 57 Z" fill="#1e3a8a" />
+      <path d="M33 92 C33 62 38 46 50 46 C62 46 67 62 67 92 Z" fill="#1e3a8a" />
+      <circle cx="50" cy="34" r="14" fill="#f2c49a" />
+      <path d="M36 32 C36 20 42 14 50 14 C58 14 64 20 64 32 C59 26 55 24 50 24 C45 24 41 26 36 32 Z" fill="#3a2a1f" />
+      <path d="M50 68 L50 90 L26 86 C24 86 23 84 23 82 L23 70 C23 68 24 67 26 67 Z" fill="#fff" stroke="#e6d6a8" strokeWidth="1.5" />
+      <path d="M50 68 L50 90 L74 86 C76 86 77 84 77 82 L77 70 C77 68 76 67 74 67 Z" fill="#fff" stroke="#e6d6a8" strokeWidth="1.5" />
+      <line x1="50" y1="68" x2="50" y2="90" stroke="#e6d6a8" strokeWidth="1.5" />
+      <line x1="29" y1="74" x2="44" y2="72" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
+      <line x1="29" y1="80" x2="42" y2="78" stroke="#eee3cd" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 // ─── Landing page ─────────────────────────────────────────────────────────────
 function LandingPage() {
   return (
@@ -256,13 +317,13 @@ function LandingPage() {
               <li>Son compagnon — un animal qui lui ressemble (chien, chat, dragon…)</li>
             </ul>
           </div>
-          <div className="step-illustration"><PenLine size={32} /></div>
+          <div className="step-illustration"><DreamingChildArt /></div>
         </div>
 
         <div className="arrow-slot right"><StepArrow /></div>
 
         <div className="how-step-row right">
-          <div className="step-illustration"><WandSparkles size={32} /></div>
+          <div className="step-illustration"><PencilWritingArt /></div>
           <div className="step-card">
             <div className="step-badge">2</div>
             <h3>Laissez la magie opérer</h3>
@@ -278,7 +339,7 @@ function LandingPage() {
             <h3>Savourez le moment ensemble</h3>
             <p>Lisez l'histoire à voix haute, blottis l'un contre l'autre — et retrouvez une nouvelle aventure prête chaque soir.</p>
           </div>
-          <div className="step-illustration"><Heart size={32} /></div>
+          <div className="step-illustration"><FamilyReadingArt /></div>
         </div>
       </section>
       <footer className="landing-footer">

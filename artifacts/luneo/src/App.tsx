@@ -897,7 +897,7 @@ function LegalPage() {
 
       <section id="mentions">
         <h2>Mentions légales</h2>
-        <p>Le site Luneo est édité par [Nom de l'entreprise ou de l'auto-entrepreneur], [forme juridique], [SIRET], dont le siège est situé [adresse]. Directeur de la publication : [Nom]. Contact : [email de contact].</p>
+        <p>Le site Luneo est édité par Nathan [Nom de famille], [forme juridique — ex. entrepreneur individuel], [SIRET], basé à Rennes, France. Directeur de la publication : Nathan [Nom de famille]. Contact : nathan.cht13@gmail.com.</p>
         <p>Hébergement de l'application : Replit, Inc. (replit.com).</p>
       </section>
 
@@ -912,7 +912,7 @@ function LegalPage() {
       <section id="confidentialite">
         <h2>Politique de confidentialité</h2>
         <p>Nous collectons l'adresse email du compte (gestion de la connexion et de l'abonnement) ainsi que les informations que vous renseignez sur votre enfant (prénom, âge, centres d'intérêt) dans le seul but de personnaliser les histoires générées. Ces informations sont fournies par vous, en tant que parent ou tuteur légal, et ne sont jamais vendues ni partagées avec des tiers à des fins commerciales.</p>
-        <p>Les données sont conservées tant que votre compte est actif, et supprimées sur simple demande à [email de contact]. Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données à tout moment.</p>
+        <p>Les données sont conservées tant que votre compte est actif, et supprimées sur simple demande à nathan.cht13@gmail.com. Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données à tout moment.</p>
         <p>Le site utilise uniquement les cookies techniques nécessaires au fonctionnement du compte et du paiement.</p>
       </section>
     </div>

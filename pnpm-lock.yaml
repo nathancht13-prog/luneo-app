@@ -176,6 +176,9 @@ importers:
       '@clerk/shared':
         specifier: ^4.28.1
         version: 4.28.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@whop/sdk':
+        specifier: 1.0.14
+        version: 1.0.14
       '@workspace/api-zod':
         specifier: workspace:*
         version: link:../../lib/api-zod
@@ -1767,6 +1770,10 @@ packages:
     peerDependenciesMeta:
       react:
         optional: true
+
+  '@whop/sdk@1.0.14':
+    resolution: {integrity: sha512-IrHJLB/ICIPK3UjXkuJZ7OdoFL3QZMQIJkYJGYmewK5am1V7KuJKagvzMr5CmNCS93L+Jx84b5xxSt1YcXNqjQ==}
+    engines: {node: '>=18.0.0'}
 
   accepts@2.0.0:
     resolution: {integrity: sha512-5cvg6CtKwfgdmVqY1WIiXKc3Q1bkRqGLi+2W/6ao+6Y7gu/RCwRuAhGEzh5B4KlszSuTLgZYuqFqo5bImjNKng==}
@@ -4514,6 +4521,10 @@ snapshots:
   '@whop/checkout@0.5.0(react@19.1.0)':
     optionalDependencies:
       react: 19.1.0
+
+  '@whop/sdk@1.0.14':
+    dependencies:
+      standardwebhooks: 1.0.0
 
   accepts@2.0.0:
     dependencies:

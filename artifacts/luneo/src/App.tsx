@@ -828,7 +828,14 @@ function ChildPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
               <option>Le week-end, sous la couette</option>
             </select>
           </div>
-          <button className="button-primary" onClick={() => setState(s => ({ ...s, child: draft }))} data-testid="button-save-child">
+          <button
+            className="button-primary"
+            onClick={() => {
+              setState(s => ({ ...s, child: draft }));
+              window.history.back();
+            }}
+            data-testid="button-save-child"
+          >
             <Check size={16} />Enregistrer le profil
           </button>
         </div>

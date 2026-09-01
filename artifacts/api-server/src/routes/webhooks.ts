@@ -22,9 +22,11 @@ router.post("/whop", async (req, res) => {
     return;
   }
 
-  const eventType = (event.type ?? event.action ?? event.event) as string | undefined;
+  const eventType = (event.action ?? event.type ?? event.event) as string | undefined;
   const membership = (event.data ?? event.object ?? event) as WhopMembership;
   const email = membership.user?.email?.toLowerCase();
+
+  req.log.info({ eventType }, "whop webhook received");
 
   if (!eventType || !email) {
     req.log.warn({ eventType, hasEmail: !!email, keys: Object.keys(event) }, "whop webhook: unrecognized payload shape, skipping");
@@ -32,7 +34,14 @@ router.post("/whop", async (req, res) => {
     return;
   }
 
-  if (eventType === "membership.activated") {
+  // Whop's docs and its actual delivered payloads disagree on the exact event
+  // name (membership.activated vs membership.went_valid, dots vs underscores) —
+  // match loosely on "valid"/"activat" and "invalid"/"deactivat" rather than
+  // betting on one exact string.
+  const isDeactivation = /invalid|deactivat/.test(eventType);
+  const isActivation = !isDeactivation && /valid|activat/.test(eventType);
+
+  if (isActivation) {
     await db
       .insert(subscribersTable)
       .values({ email, active: true, plan: membership.plan?.id })
@@ -40,7 +49,7 @@ router.post("/whop", async (req, res) => {
         target: subscribersTable.email,
         set: { active: true, plan: membership.plan?.id, updatedAt: new Date() },
       });
-  } else if (eventType === "membership.deactivated") {
+  } else if (isDeactivation) {
     await db
       .insert(subscribersTable)
       .values({ email, active: false })

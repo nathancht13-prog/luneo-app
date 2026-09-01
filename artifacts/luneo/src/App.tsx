@@ -303,7 +303,7 @@ function LandingPage() {
               <li>Jusqu'à 4 profils enfants</li>
               <li>Idéal pour les familles nombreuses</li>
             </ul>
-            <Link href="/sign-up" className="price-cta" data-testid="button-pricing-family">Choisir Familiale</Link>
+            <span className="price-cta price-cta-soon" data-testid="button-pricing-family">Bientôt disponible</span>
           </div>
         </div>
       </section>

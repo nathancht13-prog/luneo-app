@@ -333,6 +333,7 @@ function LandingPage() {
       </section>
       <footer className="landing-footer">
         <p>© {new Date().getFullYear()} Luneo</p>
+        <Link href="/legal" className="text-link">Mentions légales &amp; CGV</Link>
       </footer>
     </div>
   );
@@ -880,6 +881,40 @@ function SignUpPage() {
   return (
     <div className="clerk-page">
       <SignUp routing="path" path={`${basePath}/sign-up`} signInUrl={`${basePath}/sign-in`} />
+      <p className="legal-consent">
+        En créant un compte, vous acceptez nos <Link href="/legal#cgv">CGV</Link> et notre <Link href="/legal#confidentialite">politique de confidentialité</Link>.
+      </p>
+    </div>
+  );
+}
+
+// ─── Legal page ───────────────────────────────────────────────────────────────
+function LegalPage() {
+  return (
+    <div className="page legal-page">
+      <h1 className="page-title">Mentions légales &amp; confidentialité</h1>
+      <p className="page-intro">Dernière mise à jour : {new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' })}.</p>
+
+      <section id="mentions">
+        <h2>Mentions légales</h2>
+        <p>Le site Luneo est édité par [Nom de l'entreprise ou de l'auto-entrepreneur], [forme juridique], [SIRET], dont le siège est situé [adresse]. Directeur de la publication : [Nom]. Contact : [email de contact].</p>
+        <p>Hébergement de l'application : Replit, Inc. (replit.com).</p>
+      </section>
+
+      <section id="cgv">
+        <h2>Conditions générales de vente</h2>
+        <p>Luneo propose la génération d'histoires personnalisées pour enfants, sous forme d'abonnement mensuel sans engagement (offres Basique et Familiale) ou d'un accès gratuit limité. Les tarifs en vigueur sont indiqués sur la page d'accueil, toutes taxes comprises.</p>
+        <p>L'abonnement est facturé mensuellement via notre prestataire de paiement (Whop) et peut être résilié à tout moment depuis votre compte ; la résiliation prend effet à la fin de la période déjà payée.</p>
+        <p>Conformément à l'article L221-28 du Code de la consommation, l'accès étant fourni immédiatement après paiement, le client reconnaît renoncer à son droit de rétractation pour le contenu déjà généré.</p>
+        <p>En cas de litige, une solution amiable sera recherchée avant toute action judiciaire ; à défaut, les tribunaux français seront compétents.</p>
+      </section>
+
+      <section id="confidentialite">
+        <h2>Politique de confidentialité</h2>
+        <p>Nous collectons l'adresse email du compte (gestion de la connexion et de l'abonnement) ainsi que les informations que vous renseignez sur votre enfant (prénom, âge, centres d'intérêt) dans le seul but de personnaliser les histoires générées. Ces informations sont fournies par vous, en tant que parent ou tuteur légal, et ne sont jamais vendues ni partagées avec des tiers à des fins commerciales.</p>
+        <p>Les données sont conservées tant que votre compte est actif, et supprimées sur simple demande à [email de contact]. Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données à tout moment.</p>
+        <p>Le site utilise uniquement les cookies techniques nécessaires au fonctionnement du compte et du paiement.</p>
+      </section>
     </div>
   );
 }
@@ -909,6 +944,7 @@ function AppRoutes() {
       <Switch>
         <Route path="/sign-in/*?" component={SignInPage} />
         <Route path="/sign-up/*?" component={SignUpPage} />
+        <Route path="/legal" component={LegalPage} />
         <Route path="/create">
           <Protected><Shell luneo={luneo}><CreatePage luneo={luneo} /></Shell></Protected>
         </Route>

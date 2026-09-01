@@ -18,7 +18,7 @@ import {
   useLocation,
   useParams,
 } from 'wouter';
-import { QueryClient, QueryClientProvider, useQueryClient } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, useQuery, useQueryClient } from '@tanstack/react-query';
 import { WhopCheckoutEmbed } from '@whop/checkout/react';
 import {
   BookOpen,
@@ -126,6 +126,19 @@ function useLuneo() {
 const WHOP_PLAN_ID = 'plan_pkLxmpE0feqFB';
 function previewParagraphCount(total: number) {
   return Math.max(1, Math.ceil(total / 2));
+}
+function useSubscription() {
+  const { isSignedIn } = useUser();
+  const { data } = useQuery({
+    queryKey: ['subscription'],
+    enabled: isSignedIn,
+    queryFn: async () => {
+      const res = await fetch('/api/subscription');
+      if (!res.ok) return { subscribed: false };
+      return res.json() as Promise<{ subscribed: boolean }>;
+    },
+  });
+  return data?.subscribed ?? false;
 }
 const nav = [
   { href: '/', label: 'Accueil', icon: Home },
@@ -566,6 +579,7 @@ function SeriesPage() {
 
 function StoryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
   const { id } = useParams<{ id: string }>();
+  const subscribed = useSubscription();
   const story = luneo.state.stories.find(s => s.id === id) || luneo.state.stories[0];
   if (!story) return (
     <div className="page">
@@ -573,6 +587,7 @@ function StoryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
       <Link href="/create" className="button-primary" data-testid="link-story-empty-create">Créer une histoire</Link>
     </div>
   );
+  const paragraphs = subscribed ? story.paragraphs : story.paragraphs.slice(0, previewParagraphCount(story.paragraphs.length));
   return (
     <div className="page book-layout">
       <div className="book-head">
@@ -586,15 +601,17 @@ function StoryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
       <div className="book-illustration" />
       <div className="book-page">
         <div className="story-content">
-          {story.paragraphs.slice(0, previewParagraphCount(story.paragraphs.length)).map((p, i) => <p key={i}>{p}</p>)}
+          {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
         </div>
-        <div className="finish-line">Aperçu — abonne-toi pour lire la suite</div>
+        {!subscribed && <div className="finish-line">Aperçu — abonne-toi pour lire la suite</div>}
       </div>
-      <div className="result-actions">
-        <Link href="/subscribe" className="button-primary" data-testid="button-story-continue-paywall">
-          <WandSparkles size={16} />Lire la suite
-        </Link>
-      </div>
+      {!subscribed && (
+        <div className="result-actions">
+          <Link href="/subscribe" className="button-primary" data-testid="button-story-continue-paywall">
+            <WandSparkles size={16} />Lire la suite
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
@@ -615,6 +632,7 @@ function SubscribePage() {
 type CreateForm = { category: Category; theme: string; length: string; idea: string; mode: string };
 
 function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
+  const subscribed = useSubscription();
   const [step, setStep] = useState(1);
   const [generating, setGenerating] = useState(false);
   const [result, setResult] = useState<Story | null>(null);
@@ -668,9 +686,9 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
           <div className="eyebrow">Une nouvelle histoire pour {luneo.state.child.name || 'votre enfant'}</div>
           <h2>{result.title}</h2>
         </div>
-        <div className="story-content">{result.paragraphs.slice(0, previewParagraphCount(result.paragraphs.length)).map((p, i) => <p key={i}>{p}</p>)}</div>
+        <div className="story-content">{(subscribed ? result.paragraphs : result.paragraphs.slice(0, previewParagraphCount(result.paragraphs.length))).map((p, i) => <p key={i}>{p}</p>)}</div>
         <div className="result-actions">
-          <Link href="/subscribe" className="button-primary" data-testid="button-continue-story-paywall"><BookOpen size={16} />Continuer l'histoire</Link>
+          {!subscribed && <Link href="/subscribe" className="button-primary" data-testid="button-continue-story-paywall"><BookOpen size={16} />Continuer l'histoire</Link>}
           <Link href="/create" className="button-ghost" data-testid="button-create-another">Créer une autre</Link>
         </div>
       </div>

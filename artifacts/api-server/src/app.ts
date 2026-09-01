@@ -9,6 +9,7 @@ import {
   getClerkProxyHost,
 } from "./middlewares/clerkProxyMiddleware";
 import router from "./routes";
+import whopWebhookRouter from "./routes/webhooks";
 import { logger } from "./lib/logger";
 
 const app: Express = express();
@@ -35,6 +36,10 @@ app.use(
 
 // Clerk proxy must come before body parsers (streams raw bytes)
 app.use(CLERK_PROXY_PATH, clerkProxyMiddleware());
+
+// Whop webhook must come before express.json(): its signature is computed over the
+// raw body, and parsing it first would change the bytes and fail verification.
+app.use("/api/webhooks", express.raw({ type: "application/json" }), whopWebhookRouter);
 
 app.use(cors({ credentials: true, origin: true }));
 app.use(express.json());

@@ -401,6 +401,9 @@ function Shell({ luneo, children }: { luneo: ReturnType<typeof useLuneo>; childr
           <Link href="/child" className={active('/child') ? 'active' : ''} data-testid="link-mobile-child">
             <UserRound size={19} />Profil
           </Link>
+          <Link href="/settings" className={active('/settings') ? 'active' : ''} data-testid="link-mobile-settings">
+            <Settings size={19} />Réglages
+          </Link>
         </nav>
       </main>
     </div>

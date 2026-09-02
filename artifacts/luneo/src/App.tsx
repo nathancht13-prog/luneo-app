@@ -128,6 +128,21 @@ function previewParagraphCount(total: number) {
   if (total <= 1) return total;
   return Math.min(total - 1, Math.max(1, Math.round(total * 0.6)));
 }
+function formatRelativeTime(iso: string): string {
+  const date = new Date(iso);
+  if (isNaN(date.getTime())) return iso;
+  const minutes = Math.floor((Date.now() - date.getTime()) / 60000);
+  if (minutes < 1) return 'À l\'instant';
+  if (minutes < 60) return `Il y a ${minutes} minute${minutes > 1 ? 's' : ''}`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `Il y a ${hours} heure${hours > 1 ? 's' : ''}`;
+  const days = Math.floor(hours / 24);
+  if (days < 30) return `Il y a ${days} jour${days > 1 ? 's' : ''}`;
+  const months = Math.floor(days / 30);
+  if (months < 12) return `Il y a ${months} mois`;
+  const years = Math.floor(months / 12);
+  return `Il y a ${years} an${years > 1 ? 's' : ''}`;
+}
 function useSubscription() {
   const { isSignedIn } = useUser();
   const { data } = useQuery({
@@ -430,6 +445,7 @@ function StoryCard({ story, onFavorite }: { story: Story; onFavorite: () => void
       <div className="story-body">
         <div className="story-meta"><span>{story.category}</span><span><Clock3 size={12} /> {story.length}</span></div>
         <h3 className="story-card-title">{story.title}</h3>
+        <div className="story-time">{formatRelativeTime(story.createdAt)}</div>
         <div className="story-actions">
           <Link className="read-button" href={`/story/${story.id}`} data-testid={`link-read-${story.id}`}>Lire l'histoire <ChevronRight size={14} /></Link>
           <button className={`favorite-button ${story.favorite ? 'is-favorite' : ''}`} onClick={onFavorite} data-testid={`button-favorite-${story.id}`}>
@@ -583,7 +599,7 @@ function StoryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
               {hidden.map((p, i) => <p key={i}>{p}</p>)}
             </div>
             <div className="story-locked-cta">
-              <Link href="/subscribe" className="button-primary" data-testid="button-story-continue-paywall">
+              <Link href={`/subscribe?back=/story/${story.id}`} className="button-primary" data-testid="button-story-continue-paywall">
                 <WandSparkles size={16} />Lire la suite
               </Link>
             </div>
@@ -595,13 +611,15 @@ function StoryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
 }
 
 function SubscribePage() {
+  const back = new URLSearchParams(window.location.search).get('back');
+  const returnPath = back && back.startsWith('/') ? back : '/';
   return (
     <div className="page wizard">
       <div className="eyebrow">Débloquer Lunéo</div>
       <h1 className="page-title">S'abonner</h1>
       <p className="page-intro">Accès illimité à la création d'histoires personnalisées pour votre enfant.</p>
       <div className="wizard-card" style={{ padding: 0, overflow: 'hidden' }}>
-        <WhopCheckoutEmbed planId={WHOP_PLAN_ID} theme="light" returnUrl={`${window.location.origin}/`} />
+        <WhopCheckoutEmbed planId={WHOP_PLAN_ID} theme="light" returnUrl={`${window.location.origin}${basePath}${returnPath}`} />
       </div>
     </div>
   );
@@ -630,7 +648,7 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
       const data = await res.json() as { title: string; paragraphs: string[] };
       const id = `story-${Date.now()}`;
       const visuals = ['visual-night', 'visual-ocean', 'visual-amber', 'visual-lilac'];
-      const story: Story = { id, title: data.title, category: form.category, theme: form.theme, length: form.length, createdAt: 'À l\'instant', favorite: false, finished: false, visual: visuals[Math.floor(Math.random() * visuals.length)], paragraphs: data.paragraphs };
+      const story: Story = { id, title: data.title, category: form.category, theme: form.theme, length: form.length, createdAt: new Date().toISOString(), favorite: false, finished: false, visual: visuals[Math.floor(Math.random() * visuals.length)], paragraphs: data.paragraphs };
       luneo.createStory(story);
       setResult(story);
     } catch {
@@ -673,7 +691,7 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
             <div className="story-locked">
               <div className="story-content story-locked-text">{hidden.map((p, i) => <p key={i}>{p}</p>)}</div>
               <div className="story-locked-cta">
-                <Link href="/subscribe" className="button-primary" data-testid="button-continue-story-paywall"><BookOpen size={16} />Continuer l'histoire</Link>
+                <Link href={`/subscribe?back=/story/${result.id}`} className="button-primary" data-testid="button-continue-story-paywall"><BookOpen size={16} />Continuer l'histoire</Link>
               </div>
             </div>
           )}

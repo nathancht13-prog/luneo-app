@@ -5,9 +5,6 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
-export interface HealthStatus {
-  status: string;
-}
 
 export interface GenerateStoryRequest {
   childName: string;
@@ -17,9 +14,4 @@ export interface GenerateStoryRequest {
   length: string;
   idea?: string;
   interests?: string[];
-}
-
-export interface GeneratedStory {
-  title: string;
-  paragraphs: string[];
 }

@@ -6,6 +6,7 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export * from "./generatedStory";
-export * from "./generateStoryRequest";
-export * from "./healthStatus";
+export interface GeneratedStory {
+  title: string;
+  paragraphs: string[];
+}

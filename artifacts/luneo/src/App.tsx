@@ -125,7 +125,7 @@ function useLuneo() {
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 const WHOP_PLAN_ID = 'plan_pkLxmpE0feqFB';
 function previewParagraphCount(total: number) {
-  return Math.max(1, Math.ceil(total / 2));
+  return Math.max(1, Math.floor(total / 2));
 }
 function useSubscription() {
   const { isSignedIn } = useUser();

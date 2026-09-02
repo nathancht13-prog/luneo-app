@@ -558,7 +558,9 @@ function StoryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
       <Link href="/create" className="button-primary" data-testid="link-story-empty-create">Créer une histoire</Link>
     </div>
   );
-  const paragraphs = subscribed ? story.paragraphs : story.paragraphs.slice(0, previewParagraphCount(story.paragraphs.length));
+  const previewCount = previewParagraphCount(story.paragraphs.length);
+  const visible = subscribed ? story.paragraphs : story.paragraphs.slice(0, previewCount);
+  const hidden = subscribed ? [] : story.paragraphs.slice(previewCount);
   return (
     <div className="page book-layout">
       <div className="book-head">
@@ -572,17 +574,21 @@ function StoryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
       <div className="book-illustration" />
       <div className="book-page">
         <div className="story-content">
-          {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+          {visible.map((p, i) => <p key={i}>{p}</p>)}
         </div>
-        {!subscribed && <div className="finish-line">Aperçu — abonne-toi pour lire la suite</div>}
+        {hidden.length > 0 && (
+          <div className="story-locked">
+            <div className="story-content story-locked-text">
+              {hidden.map((p, i) => <p key={i}>{p}</p>)}
+            </div>
+            <div className="story-locked-cta">
+              <Link href="/subscribe" className="button-primary" data-testid="button-story-continue-paywall">
+                <WandSparkles size={16} />Lire la suite
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
-      {!subscribed && (
-        <div className="result-actions">
-          <Link href="/subscribe" className="button-primary" data-testid="button-story-continue-paywall">
-            <WandSparkles size={16} />Lire la suite
-          </Link>
-        </div>
-      )}
     </div>
   );
 }
@@ -650,21 +656,33 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
       </div>
     </div>
   );
-  if (result) return (
-    <div className="page wizard">
-      <div className="result-card">
-        <div className="result-banner">
-          <div className="eyebrow">Une nouvelle histoire pour {luneo.state.child.name || 'votre enfant'}</div>
-          <h2>{result.title}</h2>
-        </div>
-        <div className="story-content">{(subscribed ? result.paragraphs : result.paragraphs.slice(0, previewParagraphCount(result.paragraphs.length))).map((p, i) => <p key={i}>{p}</p>)}</div>
-        <div className="result-actions">
-          {!subscribed && <Link href="/subscribe" className="button-primary" data-testid="button-continue-story-paywall"><BookOpen size={16} />Continuer l'histoire</Link>}
-          <Link href="/create" className="button-ghost" data-testid="button-create-another">Créer une autre</Link>
+  if (result) {
+    const previewCount = previewParagraphCount(result.paragraphs.length);
+    const visible = subscribed ? result.paragraphs : result.paragraphs.slice(0, previewCount);
+    const hidden = subscribed ? [] : result.paragraphs.slice(previewCount);
+    return (
+      <div className="page wizard">
+        <div className="result-card">
+          <div className="result-banner">
+            <div className="eyebrow">Une nouvelle histoire pour {luneo.state.child.name || 'votre enfant'}</div>
+            <h2>{result.title}</h2>
+          </div>
+          <div className="story-content">{visible.map((p, i) => <p key={i}>{p}</p>)}</div>
+          {hidden.length > 0 && (
+            <div className="story-locked">
+              <div className="story-content story-locked-text">{hidden.map((p, i) => <p key={i}>{p}</p>)}</div>
+              <div className="story-locked-cta">
+                <Link href="/subscribe" className="button-primary" data-testid="button-continue-story-paywall"><BookOpen size={16} />Continuer l'histoire</Link>
+              </div>
+            </div>
+          )}
+          <div className="result-actions">
+            <Link href="/create" className="button-ghost" data-testid="button-create-another">Créer une autre</Link>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 
   const labels = ['Départ', 'Ambiance', 'Pour qui', 'Derniers détails'];
   return (

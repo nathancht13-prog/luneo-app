@@ -1,5 +1,5 @@
 import { Router, type IRouter } from "express";
-import { unwrapWebhook } from "@whop/sdk/helpers";
+import { timingSafeEqual } from "node:crypto";
 import { db, subscribersTable } from "@workspace/db";
 
 const router: IRouter = Router();
@@ -9,18 +9,29 @@ type WhopMembership = {
   plan?: { id?: string } | null;
 };
 
+function isValidWebhookSecret(received: string | undefined, expected: string | undefined): boolean {
+  if (!received || !expected) return false;
+  const a = Buffer.from(received);
+  const b = Buffer.from(expected);
+  return a.length === b.length && timingSafeEqual(a, b);
+}
+
 router.post("/whop", async (req, res) => {
-  req.log.info({ headerNames: Object.keys(req.headers), bodyLength: req.body?.length }, "whop webhook: raw request received");
+  // This webhook sends the shared secret directly in a "webhook-secret" header
+  // rather than a Standard Webhooks HMAC signature — verified by comparing it,
+  // not by unwrapping/signing anything.
+  if (!isValidWebhookSecret(req.headers["webhook-secret"] as string | undefined, process.env.WHOP_WEBHOOK_SECRET)) {
+    req.log.error("whop webhook: invalid or missing webhook-secret header");
+    res.status(400).send("invalid signature");
+    return;
+  }
 
   let event: Record<string, unknown>;
   try {
-    event = unwrapWebhook(req.body.toString(), {
-      headers: req.headers as Record<string, string>,
-      key: process.env.WHOP_WEBHOOK_SECRET,
-    });
+    event = JSON.parse(req.body.toString());
   } catch (err) {
-    req.log.error({ err }, "whop webhook signature verification failed");
-    res.status(400).send("invalid signature");
+    req.log.error({ err }, "whop webhook: failed to parse body as JSON");
+    res.status(400).send("invalid body");
     return;
   }
 

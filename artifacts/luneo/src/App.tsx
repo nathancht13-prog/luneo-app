@@ -389,7 +389,6 @@ function Shell({ luneo, children }: { luneo: ReturnType<typeof useLuneo>; childr
           <div className="top-actions">
             <Link href="/settings" className="icon-button" data-testid="button-top-settings"><Settings size={17} /></Link>
             <button className="icon-button" onClick={doLogout} data-testid="button-top-logout"><LogOut size={17} /></button>
-            <Link href="/child" className="avatar" data-testid="button-top-profile">{initial}</Link>
           </div>
         </header>
         {children}

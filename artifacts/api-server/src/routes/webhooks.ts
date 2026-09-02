@@ -10,6 +10,8 @@ type WhopMembership = {
 };
 
 router.post("/whop", async (req, res) => {
+  req.log.info({ headerNames: Object.keys(req.headers), bodyLength: req.body?.length }, "whop webhook: raw request received");
+
   let event: Record<string, unknown>;
   try {
     event = unwrapWebhook(req.body.toString(), {

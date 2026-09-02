@@ -38,7 +38,7 @@ import {
   UserRound,
   WandSparkles,
 } from 'lucide-react';
-import { series, themes, interestOptions, preferenceOptions, type Category, type Child, type Story } from './data';
+import { themes, interestOptions, preferenceOptions, type Category, type Child, type Story } from './data';
 
 // ─── Clerk setup ─────────────────────────────────────────────────────────────
 const clerkPubKey = publishableKeyFromHost(
@@ -454,7 +454,6 @@ function HomePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
   const { state, updateStory } = luneo;
   const recent = state.stories.slice(0, 3);
   const favorites = state.stories.filter(s => s.favorite).slice(0, 2);
-  const activeSeries = state.stories.find(s => s.seriesId);
   const now = new Date();
   const dateLabel = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
   const timeLabel = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
@@ -470,20 +469,6 @@ function HomePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
         </div>
         <div className="moon-scene"><span className="star one">✦</span><span className="star two">✦</span></div>
       </div>
-      {activeSeries && (
-        <>
-          <SectionHead title="Continuer une aventure" link="Voir la série" href="/series" />
-          <Link href="/series/leoflamme" className="series-card" data-testid="card-series-home">
-            <div className="series-art" />
-            <div className="series-copy">
-              <h3>Les aventures de Léo et Flamme</h3>
-              <p>Épisode 2 · Le secret de la montagne bleue</p>
-              <div className="progress-track"><span style={{ width: '40%' }} /></div>
-              <div className="mini-label"><span>2 histoires sur 5</span><span>Continuer <ChevronRight size={12} /></span></div>
-            </div>
-          </Link>
-        </>
-      )}
       <SectionHead title="Histoires récentes" link="Tout voir" href="/library" />
       {recent.length > 0 ? (
         <div className="dashboard-grid">
@@ -549,32 +534,15 @@ function LibraryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
 }
 
 function SeriesPage() {
-  const s = series[0];
   return (
     <div className="page">
       <div className="eyebrow">Le fil des aventures</div>
       <h1 className="page-title">Les séries</h1>
-      <div className="series-hero">
-        <div className="series-art" />
-        <div>
-          <h2>{s.title}</h2>
-          <p>{s.description}</p>
-          <div className="progress-track"><span style={{ width: '40%' }} /></div>
-          <div className="mini-label"><span>2 épisodes lus sur {s.total}</span><span>40 %</span></div>
-        </div>
-      </div>
-      <SectionHead title="Les épisodes" />
-      <div className="episode-list">
-        {s.episodes.map((episode, i) => (
-          <Link href={`/story/${i < 2 ? (i === 0 ? 'story-lucioles' : 'story-montagne') : 'story-etoile'}`} className="episode" key={episode} data-testid={`link-episode-${i + 1}`}>
-            <span className="episode-number">{i + 1}</span>
-            <span className="episode-copy">
-              <h3>{episode}</h3>
-              <p>{i < s.current ? '5 minutes' : 'À découvrir bientôt'}</p>
-            </span>
-            <span className="episode-state">{i < s.current ? <Check size={15} /> : i === s.current ? <ChevronRight size={17} /> : 'À venir'}</span>
-          </Link>
-        ))}
+      <div className="empty-state" data-testid="empty-series">
+        <div className="empty-icon"><WandSparkles size={20} /></div>
+        <h3>Bientôt disponible</h3>
+        <p>Les histoires en plusieurs épisodes, à suivre soir après soir, arrivent prochainement.</p>
+        <Link href="/create" className="button-primary" data-testid="button-series-create">Créer une histoire</Link>
       </div>
     </div>
   );

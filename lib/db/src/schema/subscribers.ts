@@ -8,6 +8,7 @@ export const subscribersTable = pgTable("subscribers", {
   email: text("email").primaryKey(),
   active: boolean("active").notNull().default(false),
   plan: text("plan"),
+  membershipId: text("membership_id"),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 

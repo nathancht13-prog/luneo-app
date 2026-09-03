@@ -5,6 +5,7 @@ import { db, subscribersTable } from "@workspace/db";
 const router: IRouter = Router();
 
 type WhopMembership = {
+  id?: string;
   user?: { email?: string | null } | null;
   plan?: { id?: string } | null;
 };
@@ -57,10 +58,10 @@ router.post("/whop", async (req, res) => {
   if (isActivation) {
     await db
       .insert(subscribersTable)
-      .values({ email, active: true, plan: membership.plan?.id })
+      .values({ email, active: true, plan: membership.plan?.id, membershipId: membership.id })
       .onConflictDoUpdate({
         target: subscribersTable.email,
-        set: { active: true, plan: membership.plan?.id, updatedAt: new Date() },
+        set: { active: true, plan: membership.plan?.id, membershipId: membership.id, updatedAt: new Date() },
       });
   } else if (isDeactivation) {
     await db

@@ -3,6 +3,7 @@ import {
   ClerkProvider,
   SignIn,
   SignUp,
+  UserProfile,
   Show,
   useClerk,
   useUser,
@@ -862,9 +863,23 @@ function ChildPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
   );
 }
 
+function AccountPage() {
+  return (
+    <div className="page account-page">
+      <div className="eyebrow">Sécurité et identifiants</div>
+      <h1 className="page-title">Mon compte</h1>
+      <p className="page-intro">Adresse email, mot de passe : tout se gère ici.</p>
+      <div style={{ marginTop: 24 }}>
+        <UserProfile routing="path" path={`${basePath}/account`} appearance={clerkAppearance} />
+      </div>
+    </div>
+  );
+}
+
 function SettingsPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
   const { state, setState } = luneo;
   const { signOut } = useClerk();
+  const { user } = useUser();
   const subscribed = useSubscription();
   const qc = useQueryClient();
   const [cancelling, setCancelling] = useState(false);
@@ -921,11 +936,14 @@ function SettingsPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
           <div><h3>Profil de l'enfant</h3><p>Modifier les goûts et les habitudes de lecture de {state.child.name || 'votre enfant'}.</p></div>
           <ChevronRight size={19} color="#1e3a8a" />
         </Link>
-        <button className="settings-card settings-card-button" onClick={() => signOut({ redirectUrl: basePath || '/' })} data-testid="button-settings-logout">
-          <div><h3>Se déconnecter</h3><p>Quitter ce compte sur cet appareil.</p></div>
-          <LogOut size={19} color="#1e3a8a" />
-        </button>
+        <Link href="/account" className="settings-card" data-testid="link-settings-account">
+          <div><h3>Compte</h3><p>Connecté avec {user?.primaryEmailAddress?.emailAddress || 'votre email'}. Modifier le mot de passe ou l'email.</p></div>
+          <ChevronRight size={19} color="#1e3a8a" />
+        </Link>
       </div>
+      <button className="text-link settings-logout" onClick={() => signOut({ redirectUrl: basePath || '/' })} data-testid="button-settings-logout">
+        <LogOut size={14} />Se déconnecter
+      </button>
     </div>
   );
 }
@@ -1030,6 +1048,9 @@ function AppRoutes() {
         </Route>
         <Route path="/settings">
           <Protected><Shell luneo={luneo}><SettingsPage luneo={luneo} /></Shell></Protected>
+        </Route>
+        <Route path="/account/*?">
+          <Protected><Shell luneo={luneo}><AccountPage /></Shell></Protected>
         </Route>
         <Route path="/">
           <Show when="signed-in"><Shell luneo={luneo}><HomePage luneo={luneo} /></Shell></Show>

@@ -865,13 +865,50 @@ function ChildPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
 function SettingsPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
   const { state, setState } = luneo;
   const { signOut } = useClerk();
+  const subscribed = useSubscription();
+  const qc = useQueryClient();
+  const [cancelling, setCancelling] = useState(false);
   const set = (key: 'reminders' | 'calm') => setState(s => ({ ...s, settings: { ...s.settings, [key]: !s.settings[key] } }));
+  const cancelSubscription = async () => {
+    if (!window.confirm('Résilier ton abonnement Basique et repasser au plan Gratuit ?')) return;
+    setCancelling(true);
+    try {
+      const res = await fetch('/api/subscription/cancel', { method: 'POST' });
+      if (res.ok) qc.invalidateQueries({ queryKey: ['subscription'] });
+    } finally {
+      setCancelling(false);
+    }
+  };
   return (
     <div className="page">
       <div className="eyebrow">Les petits réglages</div>
       <h1 className="page-title">Réglages</h1>
       <p className="page-intro">Luneo reste simple : quelques préférences pour protéger le calme du soir.</p>
       <div className="settings-list" style={{ marginTop: 28 }}>
+        <div className="settings-card" style={{ flexDirection: 'column', alignItems: 'stretch', gap: 16 }}>
+          <div><h3>Abonnement</h3><p>Choisis ou change ta formule à tout moment.</p></div>
+          <div className="pricing-grid settings-pricing">
+            <div className="price-card">
+              <div className="price-name">Gratuit</div>
+              <div className="price-amount">0€ <span>/ toujours</span></div>
+              {!subscribed
+                ? <span className="price-cta price-current" data-testid="badge-current-free"><Check size={14} /> Abonnement actuel</span>
+                : <button className="price-cta" onClick={cancelSubscription} disabled={cancelling} data-testid="button-downgrade-free">{cancelling ? 'Résiliation…' : 'Repasser au gratuit'}</button>}
+            </div>
+            <div className="price-card featured">
+              <div className="price-name">Basique</div>
+              <div className="price-amount">4,99€ <span>/ mois</span></div>
+              {subscribed
+                ? <span className="price-cta price-current" data-testid="badge-current-basic"><Check size={14} /> Abonnement actuel</span>
+                : <Link href="/subscribe" className="price-cta" data-testid="button-upgrade-basic">S'abonner</Link>}
+            </div>
+            <div className="price-card">
+              <div className="price-name">Familiale</div>
+              <div className="price-amount">7,99€ <span>/ mois</span></div>
+              <span className="price-cta price-cta-soon">Bientôt disponible</span>
+            </div>
+          </div>
+        </div>
         <div className="settings-card">
           <div><h3>Rappel du rituel</h3><p>Recevoir un rappel doux à l'heure des histoires.</p></div>
           <button className={`switch ${state.settings.reminders ? 'on' : ''}`} onClick={() => set('reminders')} data-testid="switch-reminders"><span /></button>

@@ -696,7 +696,18 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
             </div>
           )}
           <div className="result-actions">
-            <Link href="/create" className="button-ghost" data-testid="button-create-another">Créer une autre</Link>
+            <button
+              className="button-ghost"
+              onClick={() => {
+                setResult(null);
+                setError(null);
+                setStep(1);
+                setForm({ category: 'Divertissement', theme: 'Aventure', length: '5-10 minutes', idea: '', mode: 'new' });
+              }}
+              data-testid="button-create-another"
+            >
+              Créer une autre
+            </button>
           </div>
         </div>
       </div>

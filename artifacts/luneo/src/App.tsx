@@ -635,16 +635,22 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
   const [result, setResult] = useState<Story | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState<CreateForm>({ category: 'Divertissement', theme: 'Aventure', length: '5-10 minutes', idea: '', mode: 'new' });
+  const [limitReached, setLimitReached] = useState(false);
   const set = (p: Partial<CreateForm>) => setForm(f => ({ ...f, ...p }));
   const next = async () => {
     if (step < 4) { setStep(s => s + 1); return; }
-    setGenerating(true); setError(null);
+    setGenerating(true); setError(null); setLimitReached(false);
     try {
       const res = await fetch('/api/stories/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ childName: luneo.state.child.name || 'Votre enfant', childAge: luneo.state.child.age, category: form.category, theme: form.theme, length: form.length, idea: form.idea || undefined, interests: luneo.state.child.interests }),
       });
+      if (res.status === 403) {
+        setLimitReached(true);
+        setError('Tu as atteint la limite de 10 histoires gratuites ce mois-ci. Abonne-toi pour continuer sans limite.');
+        return;
+      }
       if (!res.ok) throw new Error('generation_failed');
       const data = await res.json() as { title: string; paragraphs: string[] };
       const id = `story-${Date.now()}`;
@@ -671,8 +677,10 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
   if (error) return (
     <div className="page wizard">
       <div className="wizard-card generate-card">
-        <h2>Oups…</h2><p>{error}</p>
-        <button className="button-primary" onClick={() => setError(null)} data-testid="button-generation-retry">Réessayer</button>
+        <h2>{limitReached ? 'Limite atteinte' : 'Oups…'}</h2><p>{error}</p>
+        {limitReached
+          ? <Link href="/subscribe" className="button-primary" data-testid="button-limit-subscribe">S'abonner</Link>
+          : <button className="button-primary" onClick={() => setError(null)} data-testid="button-generation-retry">Réessayer</button>}
       </div>
     </div>
   );

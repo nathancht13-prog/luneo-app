@@ -1,11 +1,15 @@
 import { Router, type IRouter } from "express";
 import OpenAI from "openai";
+import { getAuth, clerkClient } from "@clerk/express";
+import { and, eq, gte, sql } from "drizzle-orm";
+import { db, subscribersTable, storyGenerationsTable } from "@workspace/db";
 
 const router: IRouter = Router();
 
 const client = new OpenAI();
 
 const WORDS_PER_MINUTE_READ_ALOUD = 130;
+const FREE_MONTHLY_STORY_LIMIT = 10;
 
 function targetWordCount(lengthLabel: string): number {
   const numbers = [...lengthLabel.matchAll(/\d+/g)].map((m) => Number(m[0]));
@@ -28,6 +32,43 @@ const storyJsonSchema = {
 } as const;
 
 router.post("/stories/generate", async (req, res) => {
+  const { userId } = getAuth(req);
+  if (!userId) {
+    res.status(401).json({ error: "unauthorized" });
+    return;
+  }
+
+  const user = await clerkClient.users.getUser(userId);
+  const email = user.emailAddresses
+    .find((e) => e.id === user.primaryEmailAddressId)?.emailAddress
+    ?.toLowerCase();
+
+  if (!email) {
+    res.status(400).json({ error: "no_email" });
+    return;
+  }
+
+  const [subscriber] = await db
+    .select({ active: subscribersTable.active })
+    .from(subscribersTable)
+    .where(eq(subscribersTable.email, email));
+
+  if (!subscriber?.active) {
+    const monthStart = new Date();
+    monthStart.setDate(1);
+    monthStart.setHours(0, 0, 0, 0);
+
+    const [{ count: generatedThisMonth }] = await db
+      .select({ count: sql<number>`count(*)::int` })
+      .from(storyGenerationsTable)
+      .where(and(eq(storyGenerationsTable.email, email), gte(storyGenerationsTable.createdAt, monthStart)));
+
+    if (generatedThisMonth >= FREE_MONTHLY_STORY_LIMIT) {
+      res.status(403).json({ error: "monthly_limit_reached", limit: FREE_MONTHLY_STORY_LIMIT });
+      return;
+    }
+  }
+
   const {
     childName = "Votre enfant",
     theme = "Aventure",
@@ -84,6 +125,7 @@ router.post("/stories/generate", async (req, res) => {
     }
 
     const story = JSON.parse(raw) as { title: string; paragraphs: string[] };
+    await db.insert(storyGenerationsTable).values({ email });
     res.json(story);
   } catch (err) {
     req.log.error({ err }, "story generation failed");

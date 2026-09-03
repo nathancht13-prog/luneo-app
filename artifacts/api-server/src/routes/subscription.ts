@@ -65,7 +65,7 @@ router.post("/subscription/cancel", async (req, res) => {
     const whopRes = await fetch(`https://api.whop.com/api/v1/memberships/${row.membershipId}/cancel`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${process.env.WHOP_API_KEY}`,
+        Authorization: `Bearer ${process.env.WHOP_ADMIN_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ cancellation_mode: "immediate" }),

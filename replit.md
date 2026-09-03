@@ -12,7 +12,7 @@ _Replace the heading above with the project's name, and this line with one sente
 - Required env: `DATABASE_URL` — Postgres connection string
 - Required env: `OPENAI_API_KEY` — used by the API server to generate stories (`POST /api/stories/generate`)
 - Required env: `WHOP_WEBHOOK_SECRET` — signing secret (`ws_...`) for the Whop webhook endpoint (`POST /api/webhooks/whop`), used to unlock full stories once a membership activates
-- Required env: `WHOP_API_KEY` — Whop API key (`apik_...`), used server-side to cancel a membership when a user downgrades to the free plan from Réglages
+- Required env: `WHOP_ADMIN_API_KEY` — Whop API key (`apik_...`), used server-side to cancel a membership when a user downgrades to the free plan from Réglages
 
 ## Stack
 

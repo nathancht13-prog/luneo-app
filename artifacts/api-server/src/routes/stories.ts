@@ -83,6 +83,7 @@ router.post("/stories/generate", async (req, res) => {
     length = "5-10 minutes",
     idea,
     interests,
+    companion,
   } = req.body as {
     childName?: string;
     theme?: string;
@@ -91,6 +92,7 @@ router.post("/stories/generate", async (req, res) => {
     length?: string;
     idea?: string;
     interests?: string[];
+    companion?: string;
   };
 
   const words = targetWordCount(length);
@@ -115,6 +117,9 @@ router.post("/stories/generate", async (req, res) => {
             `Thème : ${theme}`,
             interests?.length ? `Centres d'intérêt de l'enfant : ${interests.join(", ")}` : null,
             idea ? `Idée particulière à intégrer : ${idea}` : null,
+            companion
+              ? `Compagnon récurrent : ${childName} est toujours accompagné(e) de son compagnon, ${companion}. Ce personnage doit apparaître dans cette histoire comme dans toutes les histoires de ${childName}, avec un rôle actif (il parle, aide, réagit) — pas juste mentionné en passant. Adapte naturellement son comportement et ses répliques au thème et au décor de l'histoire (par exemple, s'il s'agit d'un animal terrestre dans une histoire sur l'océan, trouve une façon crédible et douce de l'intégrer plutôt que de l'ignorer).`
+              : null,
             `L'histoire est écrite à la troisième personne et met ${childName} au centre de l'aventure.`,
             `Longueur : vise environ ${words} mots au total (soit une lecture à voix haute d'environ ${length}). C'est une longueur cible importante à respecter, ne t'arrête pas prématurément — développe le déroulé, les dialogues et les détails pour l'atteindre naturellement.`,
             `Structure : exactement ${paragraphCount} paragraphes, ni plus ni moins, de longueur régulière (environ ${Math.round(words / paragraphCount)} mots chacun). Ce nombre de paragraphes est une consigne stricte à respecter précisément.`,

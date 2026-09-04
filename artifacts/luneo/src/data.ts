@@ -22,8 +22,10 @@ export type Child = {
   preferences: string[];
   siblings: string;
   reading: string;
+  companion: string;
 };
 
 export const themes = ['Aventure', 'Amitié', 'Mystère', 'Dinosaures', 'Espace', 'Émotions', 'Créatures'];
 export const interestOptions = ['Dinosaures', 'Dragons', 'Espace', 'Océan', 'Forêt', 'Machines'];
 export const preferenceOptions = ['Créatures', 'Mystères', 'Amitié', 'Humour', 'Courage', 'Apaisement'];
+export const companionOptions = ['Chien', 'Chat', 'Lapin', 'Renard', 'Hérisson', 'Ourson', 'Poussin', 'Petit dragon'];

@@ -39,7 +39,7 @@ import {
   UserRound,
   WandSparkles,
 } from 'lucide-react';
-import { themes, interestOptions, preferenceOptions, type Category, type Child, type Story } from './data';
+import { themes, interestOptions, preferenceOptions, companionOptions, type Category, type Child, type Story } from './data';
 
 // ─── Clerk setup ─────────────────────────────────────────────────────────────
 const clerkPubKey = publishableKeyFromHost(
@@ -108,7 +108,7 @@ const queryClient = new QueryClient();
 // ─── Local state (stories, child, settings) ───────────────────────────────
 const STORAGE = 'luneo-demo-state-v2';
 type State = { stories: Story[]; child: Child; settings: { reminders: boolean; calm: boolean } };
-const emptyChild: Child = { name: '', age: 6, interests: [], preferences: [], siblings: '', reading: 'Avec un parent, avant le coucher' };
+const emptyChild: Child = { name: '', age: 6, interests: [], preferences: [], siblings: '', reading: 'Avec un parent, avant le coucher', companion: '' };
 const initialState: State = { stories: [], child: emptyChild, settings: { reminders: true, calm: true } };
 
 function useLuneo() {
@@ -660,7 +660,7 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
       const res = await fetch('/api/stories/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ childName: luneo.state.child.name || 'Votre enfant', childAge: luneo.state.child.age, category: form.category, theme: form.theme, length: form.length, idea: form.idea || undefined, interests: luneo.state.child.interests }),
+        body: JSON.stringify({ childName: luneo.state.child.name || 'Votre enfant', childAge: luneo.state.child.age, category: form.category, theme: form.theme, length: form.length, idea: form.idea || undefined, interests: luneo.state.child.interests, companion: luneo.state.child.companion || undefined }),
       });
       if (res.status === 403) {
         setLimitReached(true);
@@ -862,6 +862,10 @@ function ChildPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
           <div className="field">
             <label className="field-label">Ce qu'il aime</label>
             <div className="tag-grid">{interestOptions.map(x => <button className={`tag ${draft.interests.includes(x) ? 'selected' : ''}`} key={x} onClick={() => toggle('interests', x)} data-testid={`button-interest-${x}`}>{x}</button>)}</div>
+          </div>
+          <div className="field">
+            <label className="field-label">Son compagnon</label>
+            <div className="tag-grid">{companionOptions.map(x => <button className={`tag ${draft.companion === x ? 'selected' : ''}`} key={x} onClick={() => setDraft({ ...draft, companion: draft.companion === x ? '' : x })} data-testid={`button-companion-${x}`}>{x}</button>)}</div>
           </div>
           <div className="field">
             <label className="field-label">Ses thèmes favoris</label>

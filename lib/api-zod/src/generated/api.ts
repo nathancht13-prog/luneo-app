@@ -8,6 +8,25 @@
 import * as zod from "zod";
 
 /**
+ * Uses Claude to write a short bedtime story starring the given child
+ * @summary Generate a personalized bedtime story
+ */
+export const GenerateStoryBody = zod.object({
+  childName: zod.string(),
+  childAge: zod.number(),
+  category: zod.string(),
+  theme: zod.string(),
+  length: zod.string(),
+  idea: zod.string().optional(),
+  interests: zod.array(zod.string()).optional(),
+});
+
+export const GenerateStoryResponse = zod.object({
+  title: zod.string(),
+  paragraphs: zod.array(zod.string()),
+});
+
+/**
  * Returns server health status
  * @summary Health check
  */

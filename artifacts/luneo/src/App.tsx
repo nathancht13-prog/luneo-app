@@ -594,7 +594,7 @@ function StoryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
         <div className="story-content">
           {visible.map((p, i) => <p key={i}>{p}</p>)}
         </div>
-        {hidden.length > 0 && (
+        {!subscribed && (hidden.length > 0 ? (
           <div className="story-locked">
             <div className="story-content story-locked-text">
               {hidden.map((p, i) => <p key={i}>{p}</p>)}
@@ -605,7 +605,13 @@ function StoryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
               </Link>
             </div>
           </div>
-        )}
+        ) : (
+          <div className="result-actions">
+            <Link href={`/subscribe?back=/story/${story.id}`} className="button-primary" data-testid="button-story-continue-paywall">
+              <WandSparkles size={16} />Lire la suite
+            </Link>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -627,15 +633,25 @@ function SubscribePage() {
 }
 
 type CreateForm = { category: Category; theme: string; length: string; idea: string; mode: string };
+const DEFAULT_CREATE_FORM: CreateForm = { category: 'Divertissement', theme: 'Aventure', length: '5-10 minutes', idea: '', mode: 'new' };
+const CREATE_DRAFT_KEY = 'luneo-create-draft';
+function loadCreateDraft(): { step: number; form: CreateForm } | null {
+  try { return JSON.parse(sessionStorage.getItem(CREATE_DRAFT_KEY) || 'null'); }
+  catch { return null; }
+}
 
 function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
   const subscribed = useSubscription();
-  const [step, setStep] = useState(1);
+  const draft = loadCreateDraft();
+  const [step, setStep] = useState(draft?.step ?? 1);
   const [generating, setGenerating] = useState(false);
   const [result, setResult] = useState<Story | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [form, setForm] = useState<CreateForm>({ category: 'Divertissement', theme: 'Aventure', length: '5-10 minutes', idea: '', mode: 'new' });
+  const [form, setForm] = useState<CreateForm>(draft?.form ?? DEFAULT_CREATE_FORM);
   const [limitReached, setLimitReached] = useState(false);
+  useEffect(() => {
+    sessionStorage.setItem(CREATE_DRAFT_KEY, JSON.stringify({ step, form }));
+  }, [step, form]);
   const set = (p: Partial<CreateForm>) => setForm(f => ({ ...f, ...p }));
   const next = async () => {
     if (step < 4) { setStep(s => s + 1); return; }
@@ -658,6 +674,7 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
       const story: Story = { id, title: data.title, category: form.category, theme: form.theme, length: form.length, createdAt: new Date().toISOString(), favorite: false, finished: false, visual: visuals[Math.floor(Math.random() * visuals.length)], paragraphs: data.paragraphs };
       luneo.createStory(story);
       setResult(story);
+      sessionStorage.removeItem(CREATE_DRAFT_KEY);
     } catch {
       setError('La génération a échoué. Réessayez dans un instant.');
     } finally {
@@ -705,13 +722,17 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
             </div>
           )}
           <div className="result-actions">
+            {!subscribed && hidden.length === 0 && (
+              <Link href={`/subscribe?back=/story/${result.id}`} className="button-primary" data-testid="button-continue-story-paywall"><BookOpen size={16} />Continuer l'histoire</Link>
+            )}
             <button
               className="button-ghost"
               onClick={() => {
                 setResult(null);
                 setError(null);
                 setStep(1);
-                setForm({ category: 'Divertissement', theme: 'Aventure', length: '5-10 minutes', idea: '', mode: 'new' });
+                setForm(DEFAULT_CREATE_FORM);
+                sessionStorage.removeItem(CREATE_DRAFT_KEY);
               }}
               data-testid="button-create-another"
             >

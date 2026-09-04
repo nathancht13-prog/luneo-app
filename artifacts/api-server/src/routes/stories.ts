@@ -11,10 +11,16 @@ const client = new OpenAI();
 const WORDS_PER_MINUTE_READ_ALOUD = 130;
 const FREE_MONTHLY_STORY_LIMIT = 10;
 
+const WORDS_PER_PARAGRAPH = 160;
+
 function targetWordCount(lengthLabel: string): number {
   const numbers = [...lengthLabel.matchAll(/\d+/g)].map((m) => Number(m[0]));
   const minutes = numbers.length > 0 ? numbers.reduce((a, b) => a + b, 0) / numbers.length : 8;
   return Math.round(minutes * WORDS_PER_MINUTE_READ_ALOUD);
+}
+
+function targetParagraphCount(words: number): number {
+  return Math.max(4, Math.round(words / WORDS_PER_PARAGRAPH));
 }
 
 const storyJsonSchema = {
@@ -88,6 +94,7 @@ router.post("/stories/generate", async (req, res) => {
   };
 
   const words = targetWordCount(length);
+  const paragraphCount = targetParagraphCount(words);
 
   try {
     const completion = await client.chat.completions.create({
@@ -109,7 +116,8 @@ router.post("/stories/generate", async (req, res) => {
             interests?.length ? `Centres d'intérêt de l'enfant : ${interests.join(", ")}` : null,
             idea ? `Idée particulière à intégrer : ${idea}` : null,
             `L'histoire est écrite à la troisième personne et met ${childName} au centre de l'aventure.`,
-            `Longueur : vise environ ${words} mots au total (soit une lecture à voix haute d'environ ${length}). C'est une longueur cible importante à respecter, ne t'arrête pas prématurément — développe le déroulé, les dialogues et les détails pour l'atteindre naturellement. Répartis le texte sur plusieurs paragraphes réguliers (environ 120 à 180 mots chacun).`,
+            `Longueur : vise environ ${words} mots au total (soit une lecture à voix haute d'environ ${length}). C'est une longueur cible importante à respecter, ne t'arrête pas prématurément — développe le déroulé, les dialogues et les détails pour l'atteindre naturellement.`,
+            `Structure : exactement ${paragraphCount} paragraphes, ni plus ni moins, de longueur régulière (environ ${Math.round(words / paragraphCount)} mots chacun). Ce nombre de paragraphes est une consigne stricte à respecter précisément.`,
             `Donne aussi un titre court et évocateur.`,
           ]
             .filter(Boolean)

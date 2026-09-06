@@ -21,6 +21,7 @@ import {
 } from 'wouter';
 import { QueryClient, QueryClientProvider, useQuery, useQueryClient } from '@tanstack/react-query';
 import { WhopCheckoutEmbed } from '@whop/checkout/react';
+import { trackEvent } from './analytics';
 import {
   BookOpen,
   Check,
@@ -214,7 +215,7 @@ function LandingPage() {
         <Logo />
         <nav className="landing-header-actions">
           <Link href="/sign-in" className="button-ghost" data-testid="button-landing-login">Se connecter</Link>
-          <Link href="/sign-up" className="button-primary" data-testid="button-landing-signup">Créer une histoire</Link>
+          <Link href="/sign-up" className="button-primary" onClick={() => trackEvent('signup_started', { location: 'header' })} data-testid="button-landing-signup">Créer une histoire</Link>
         </nav>
       </header>
       <section className="landing-hero">
@@ -223,7 +224,7 @@ function LandingPage() {
           <h1>Chaque soir, une histoire où votre enfant est le héros.</h1>
           <p>Luneo crée, en quelques secondes, une histoire unique pour votre enfant : son prénom, son âge, ses passions. Une nouvelle aventure à lire ensemble, chaque soir, pour un vrai moment de calme avant de dormir.</p>
           <div className="landing-hero-actions">
-            <Link href="/sign-up" className="hero-button" data-testid="button-hero-create">
+            <Link href="/sign-up" className="hero-button" onClick={() => trackEvent('signup_started', { location: 'hero' })} data-testid="button-hero-create">
               <Plus size={18} />Créer une histoire pour mon enfant
             </Link>
             <Link href="/sign-in" className="text-link" data-testid="link-hero-login">
@@ -296,7 +297,7 @@ function LandingPage() {
               <li>Aperçu de chaque histoire</li>
               <li>1 profil enfant</li>
             </ul>
-            <Link href="/sign-up" className="price-cta" data-testid="button-pricing-free">Commencer gratuitement</Link>
+            <Link href="/sign-up" className="price-cta" onClick={() => trackEvent('plan_selected', { plan: 'free', location: 'landing' })} data-testid="button-pricing-free">Commencer gratuitement</Link>
           </div>
           <div className="price-card featured">
             <span className="price-badge">Le plus populaire</span>
@@ -309,7 +310,7 @@ function LandingPage() {
               <li>Durée 5-10 ou 10-15 minutes</li>
               <li>Sans engagement, résiliable à tout moment</li>
             </ul>
-            <Link href="/sign-up" className="price-cta" data-testid="button-pricing-basic">Choisir Basique</Link>
+            <Link href="/sign-up" className="price-cta" onClick={() => trackEvent('plan_selected', { plan: 'basic', location: 'landing' })} data-testid="button-pricing-basic">Choisir Basique</Link>
           </div>
           <div className="price-card">
             <div className="price-name">Familiale</div>
@@ -448,8 +449,8 @@ function StoryCard({ story, onFavorite }: { story: Story; onFavorite: () => void
         <h3 className="story-card-title">{story.title}</h3>
         <div className="story-time">{formatRelativeTime(story.createdAt)}</div>
         <div className="story-actions">
-          <Link className="read-button" href={`/story/${story.id}`} data-testid={`link-read-${story.id}`}>Lire l'histoire <ChevronRight size={14} /></Link>
-          <button className={`favorite-button ${story.favorite ? 'is-favorite' : ''}`} onClick={onFavorite} data-testid={`button-favorite-${story.id}`}>
+          <Link className="read-button" href={`/story/${story.id}`} onClick={() => trackEvent('story_opened', { location: 'story_card', category: story.category })} data-testid={`link-read-${story.id}`}>Lire l'histoire <ChevronRight size={14} /></Link>
+          <button className={`favorite-button ${story.favorite ? 'is-favorite' : ''}`} onClick={() => { trackEvent('story_favorite_changed', { favorite: !story.favorite, location: 'story_card' }); onFavorite(); }} data-testid={`button-favorite-${story.id}`}>
             <Heart size={19} fill={story.favorite ? 'currentColor' : 'none'} />
           </button>
         </div>
@@ -583,7 +584,7 @@ function StoryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
     <div className="page book-layout">
       <div className="book-head">
         <Link href="/" className="text-link" data-testid="link-back-home"><ChevronLeft size={17} />Retour</Link>
-        <button className={`favorite-button ${story.favorite ? 'is-favorite' : ''}`} onClick={() => luneo.updateStory(story.id, { favorite: !story.favorite })} data-testid="button-story-favorite">
+        <button className={`favorite-button ${story.favorite ? 'is-favorite' : ''}`} onClick={() => { trackEvent('story_favorite_changed', { favorite: !story.favorite, location: 'reader' }); luneo.updateStory(story.id, { favorite: !story.favorite }); }} data-testid="button-story-favorite">
           <Heart size={21} fill={story.favorite ? 'currentColor' : 'none'} /> {story.favorite ? 'Dans les favoris' : 'Ajouter aux favoris'}
         </button>
       </div>
@@ -600,14 +601,14 @@ function StoryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
               {hidden.map((p, i) => <p key={i}>{p}</p>)}
             </div>
             <div className="story-locked-cta">
-              <Link href={`/subscribe?back=/story/${story.id}`} className="button-primary" data-testid="button-story-continue-paywall">
+              <Link href={`/subscribe?back=/story/${story.id}`} className="button-primary" onClick={() => trackEvent('paywall_clicked', { location: 'story_reader' })} data-testid="button-story-continue-paywall">
                 <WandSparkles size={16} />Lire la suite
               </Link>
             </div>
           </div>
         ) : (
           <div className="result-actions">
-            <Link href={`/subscribe?back=/story/${story.id}`} className="button-primary" data-testid="button-story-continue-paywall">
+            <Link href={`/subscribe?back=/story/${story.id}`} className="button-primary" onClick={() => trackEvent('paywall_clicked', { location: 'story_reader' })} data-testid="button-story-continue-paywall">
               <WandSparkles size={16} />Lire la suite
             </Link>
           </div>
@@ -620,6 +621,9 @@ function StoryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
 function SubscribePage() {
   const back = new URLSearchParams(window.location.search).get('back');
   const returnPath = back && back.startsWith('/') ? back : '/';
+  useEffect(() => {
+    trackEvent('checkout_viewed', { plan: 'basic', source: back ? 'paywall' : 'settings' });
+  }, [back]);
   return (
     <div className="page wizard">
       <div className="eyebrow">Débloquer Lunéo</div>
@@ -655,6 +659,12 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
   const set = (p: Partial<CreateForm>) => setForm(f => ({ ...f, ...p }));
   const next = async () => {
     if (step < 4) { setStep(s => s + 1); return; }
+    trackEvent('story_generation_started', {
+      category: form.category,
+      theme: form.theme,
+      length: form.length,
+      subscribed,
+    });
     setGenerating(true); setError(null); setLimitReached(false);
     try {
       const res = await fetch('/api/stories/generate', {
@@ -663,6 +673,7 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
         body: JSON.stringify({ childName: luneo.state.child.name || 'Votre enfant', childAge: luneo.state.child.age, category: form.category, theme: form.theme, length: form.length, idea: form.idea || undefined, interests: luneo.state.child.interests, companion: luneo.state.child.companion || undefined }),
       });
       if (res.status === 403) {
+        trackEvent('story_limit_reached', { plan: 'free' });
         setLimitReached(true);
         setError('Tu as atteint la limite de 10 histoires gratuites ce mois-ci. Abonne-toi pour continuer sans limite.');
         return;
@@ -674,8 +685,15 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
       const story: Story = { id, title: data.title, category: form.category, theme: form.theme, length: form.length, createdAt: new Date().toISOString(), favorite: false, finished: false, visual: visuals[Math.floor(Math.random() * visuals.length)], paragraphs: data.paragraphs };
       luneo.createStory(story);
       setResult(story);
+      trackEvent('story_generated', {
+        category: form.category,
+        theme: form.theme,
+        length: form.length,
+        subscribed,
+      });
       sessionStorage.removeItem(CREATE_DRAFT_KEY);
     } catch {
+      trackEvent('story_generation_failed', { category: form.category });
       setError('La génération a échoué. Réessayez dans un instant.');
     } finally {
       setGenerating(false);
@@ -696,7 +714,7 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
       <div className="wizard-card generate-card">
         <h2>{limitReached ? 'Limite atteinte' : 'Oups…'}</h2><p>{error}</p>
         {limitReached
-          ? <Link href="/subscribe" className="button-primary" data-testid="button-limit-subscribe">S'abonner</Link>
+          ? <Link href="/subscribe" className="button-primary" onClick={() => trackEvent('paywall_clicked', { location: 'generation_limit' })} data-testid="button-limit-subscribe">S'abonner</Link>
           : <button className="button-primary" onClick={() => setError(null)} data-testid="button-generation-retry">Réessayer</button>}
       </div>
     </div>
@@ -717,13 +735,13 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
             <div className="story-locked">
               <div className="story-content story-locked-text">{hidden.map((p, i) => <p key={i}>{p}</p>)}</div>
               <div className="story-locked-cta">
-                <Link href={`/subscribe?back=/story/${result.id}`} className="button-primary" data-testid="button-continue-story-paywall"><BookOpen size={16} />Continuer l'histoire</Link>
+                <Link href={`/subscribe?back=/story/${result.id}`} className="button-primary" onClick={() => trackEvent('paywall_clicked', { location: 'generation_result' })} data-testid="button-continue-story-paywall"><BookOpen size={16} />Continuer l'histoire</Link>
               </div>
             </div>
           )}
           <div className="result-actions">
             {!subscribed && hidden.length === 0 && (
-              <Link href={`/subscribe?back=/story/${result.id}`} className="button-primary" data-testid="button-continue-story-paywall"><BookOpen size={16} />Continuer l'histoire</Link>
+              <Link href={`/subscribe?back=/story/${result.id}`} className="button-primary" onClick={() => trackEvent('paywall_clicked', { location: 'generation_result' })} data-testid="button-continue-story-paywall"><BookOpen size={16} />Continuer l'histoire</Link>
             )}
             <button
               className="button-ghost"
@@ -896,6 +914,11 @@ function ChildPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
             className="button-primary"
             onClick={() => {
               setState(s => ({ ...s, child: draft }));
+              trackEvent('child_profile_saved', {
+                interests_count: draft.interests.length,
+                preferences_count: draft.preferences.length,
+                has_companion: Boolean(draft.companion),
+              });
               window.history.back();
             }}
             data-testid="button-save-child"
@@ -934,7 +957,10 @@ function SettingsPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
     setCancelling(true);
     try {
       const res = await fetch('/api/subscription/cancel', { method: 'POST' });
-      if (res.ok) qc.invalidateQueries({ queryKey: ['subscription'] });
+      if (res.ok) {
+        trackEvent('subscription_cancelled', { plan: 'basic' });
+        qc.invalidateQueries({ queryKey: ['subscription'] });
+      }
     } finally {
       setCancelling(false);
     }
@@ -960,7 +986,7 @@ function SettingsPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
               <div className="price-amount">4,99€ <span>/ mois</span></div>
               {subscribed
                 ? <span className="price-cta price-current" data-testid="badge-current-basic"><Check size={14} /> Abonnement actuel</span>
-                : <Link href="/subscribe" className="price-cta" data-testid="button-upgrade-basic">S'abonner</Link>}
+                : <Link href="/subscribe" className="price-cta" onClick={() => trackEvent('plan_selected', { plan: 'basic', location: 'settings' })} data-testid="button-upgrade-basic">S'abonner</Link>}
             </div>
             <div className="price-card">
               <div className="price-name">Familiale</div>

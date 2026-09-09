@@ -97,7 +97,6 @@ router.post("/stories/generate", async (req, res) => {
 
   const words = targetWordCount(length);
   const paragraphCount = targetParagraphCount(words);
-  const isLearning = category === "Émotions & apprentissage";
 
   try {
     const completion = await client.chat.completions.create({
@@ -115,13 +114,11 @@ router.post("/stories/generate", async (req, res) => {
           content: [
             `Écris une histoire du soir pour ${childName}, ${childAge} ans.`,
             `Catégorie : ${category}`,
-            isLearning
-              ? `Leçon à faire vivre et comprendre à ${childName} : "${theme}". C'est une histoire à visée éducative sur le quotidien, pas une aventure fantastique. Situe l'histoire dans un cadre réaliste et familier de l'enfant (maison, jardin, école, parc, chambre...), sans créatures fantastiques, magie, dragons ni univers délirant. L'histoire doit rester simple et crédible, comme un petit moment de vie. Construis une situation concrète où ${childName} est d'abord confronté(e) à la difficulté liée à cette leçon, puis comprend progressivement, avec l'aide d'un proche (parent, ami, le compagnon s'il y en a un) pourquoi et comment bien faire — et termine sur une résolution claire où ${childName} met en pratique ce qu'il/elle a appris. La leçon doit être explicite et facile à comprendre pour un enfant de cet âge, sans être moralisatrice ou donneuse de leçons dans le ton.`
-              : `Thème : ${theme}`,
+            `Thème : ${theme}`,
             interests?.length ? `Centres d'intérêt de l'enfant : ${interests.join(", ")}` : null,
             idea ? `Idée particulière à intégrer : ${idea}` : null,
             companion
-              ? `Compagnon récurrent : ${childName} est toujours accompagné(e) de son compagnon, ${companion}. Ce personnage doit apparaître dans cette histoire comme dans toutes les histoires de ${childName}, avec un rôle actif (il parle, aide, réagit) — pas juste mentionné en passant.${isLearning ? ` Ici, ${companion} reste un animal de compagnie ordinaire (pas de pouvoirs magiques), qui peut par exemple réagir, encourager ou donner l'exemple pour aider ${childName} à comprendre la leçon.` : ` Adapte naturellement son comportement et ses répliques au thème et au décor de l'histoire (par exemple, s'il s'agit d'un animal terrestre dans une histoire sur l'océan, trouve une façon crédible et douce de l'intégrer plutôt que de l'ignorer).`}`
+              ? `Compagnon récurrent : ${childName} est toujours accompagné(e) de son compagnon, ${companion}. Ce personnage doit apparaître dans cette histoire comme dans toutes les histoires de ${childName}, avec un rôle actif (il parle, aide, réagit) — pas juste mentionné en passant. Adapte naturellement son comportement et ses répliques au thème et au décor de l'histoire (par exemple, s'il s'agit d'un animal terrestre dans une histoire sur l'océan, trouve une façon crédible et douce de l'intégrer plutôt que de l'ignorer).`
               : null,
             `L'histoire est écrite à la troisième personne et met ${childName} au centre de l'aventure.`,
             `Longueur : vise environ ${words} mots au total (soit une lecture à voix haute d'environ ${length}). C'est une longueur cible importante à respecter, ne t'arrête pas prématurément — développe le déroulé, les dialogues et les détails pour l'atteindre naturellement.`,

@@ -26,7 +26,6 @@ import {
   Check,
   ChevronLeft,
   ChevronRight,
-  CircleHelp,
   Clock3,
   Heart,
   Home,
@@ -39,7 +38,7 @@ import {
   UserRound,
   WandSparkles,
 } from 'lucide-react';
-import { themes, lessonOptions, interestOptions, preferenceOptions, companionOptions, type Category, type Child, type Story } from './data';
+import { themes, interestOptions, preferenceOptions, companionOptions, type Child, type Story } from './data';
 
 // ─── Clerk setup ─────────────────────────────────────────────────────────────
 const clerkPubKey = publishableKeyFromHost(
@@ -444,7 +443,7 @@ function StoryCard({ story, onFavorite }: { story: Story; onFavorite: () => void
     <article className="story-card" data-testid={`card-story-${story.id}`}>
       <StoryVisual story={story} />
       <div className="story-body">
-        <div className="story-meta"><span>{story.category}</span><span><Clock3 size={12} /> {story.length}</span></div>
+        <div className="story-meta"><span>{story.theme}</span><span><Clock3 size={12} /> {story.length}</span></div>
         <h3 className="story-card-title">{story.title}</h3>
         <div className="story-time">{formatRelativeTime(story.createdAt)}</div>
         <div className="story-actions">
@@ -517,7 +516,7 @@ function LibraryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState('Toutes');
   const visible = state.stories
-    .filter(s => filter === 'Toutes' ? true : filter === 'Favoris' ? s.favorite : s.category === filter)
+    .filter(s => filter === 'Toutes' ? true : s.favorite)
     .filter(s => `${s.title} ${s.theme}`.toLowerCase().includes(query.toLowerCase()));
 
   return (
@@ -531,7 +530,7 @@ function LibraryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
           <input data-testid="input-library-search" value={query} onChange={e => setQuery(e.target.value)} placeholder="Rechercher une histoire…" />
         </label>
         <div className="filter-row">
-          {['Toutes', 'Favoris', 'Divertissement', 'Émotions & apprentissage'].map(x => (
+          {['Toutes', 'Favoris'].map(x => (
             <button key={x} className={`filter ${filter === x ? 'active' : ''}`} onClick={() => setFilter(x)} data-testid={`button-filter-${x}`}>{x}</button>
           ))}
         </div>
@@ -587,7 +586,7 @@ function StoryPage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
           <Heart size={21} fill={story.favorite ? 'currentColor' : 'none'} /> {story.favorite ? 'Dans les favoris' : 'Ajouter aux favoris'}
         </button>
       </div>
-      <div className="book-meta">{story.seriesId ? `Épisode ${story.episode}` : story.category} · {story.length}</div>
+      <div className="book-meta">{story.seriesId ? `Épisode ${story.episode}` : story.theme} · {story.length}</div>
       <h1 className="book-title">{story.title}</h1>
       <div className="book-illustration" />
       <div className="book-page">
@@ -632,8 +631,8 @@ function SubscribePage() {
   );
 }
 
-type CreateForm = { category: Category; theme: string; length: string; idea: string; mode: string };
-const DEFAULT_CREATE_FORM: CreateForm = { category: 'Divertissement', theme: 'Aventure', length: '5-10 minutes', idea: '', mode: 'new' };
+type CreateForm = { theme: string; length: string; idea: string; mode: string };
+const DEFAULT_CREATE_FORM: CreateForm = { theme: 'Aventure', length: '5-10 minutes', idea: '', mode: 'new' };
 const CREATE_DRAFT_KEY = 'luneo-create-draft';
 function loadCreateDraft(): { step: number; form: CreateForm } | null {
   try { return JSON.parse(sessionStorage.getItem(CREATE_DRAFT_KEY) || 'null'); }
@@ -654,13 +653,13 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
   }, [step, form]);
   const set = (p: Partial<CreateForm>) => setForm(f => ({ ...f, ...p }));
   const next = async () => {
-    if (step < 4) { setStep(s => s + 1); return; }
+    if (step < 3) { setStep(s => s + 1); return; }
     setGenerating(true); setError(null); setLimitReached(false);
     try {
       const res = await fetch('/api/stories/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ childName: luneo.state.child.name || 'Votre enfant', childAge: luneo.state.child.age, category: form.category, theme: form.theme, length: form.length, idea: form.idea || undefined, interests: luneo.state.child.interests, companion: luneo.state.child.companion || undefined }),
+        body: JSON.stringify({ childName: luneo.state.child.name || 'Votre enfant', childAge: luneo.state.child.age, category: 'Divertissement', theme: form.theme, length: form.length, idea: form.idea || undefined, interests: luneo.state.child.interests, companion: luneo.state.child.companion || undefined }),
       });
       if (res.status === 403) {
         setLimitReached(true);
@@ -671,7 +670,7 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
       const data = await res.json() as { title: string; paragraphs: string[] };
       const id = `story-${Date.now()}`;
       const visuals = ['visual-night', 'visual-ocean', 'visual-amber', 'visual-lilac'];
-      const story: Story = { id, title: data.title, category: form.category, theme: form.theme, length: form.length, createdAt: new Date().toISOString(), favorite: false, finished: false, visual: visuals[Math.floor(Math.random() * visuals.length)], paragraphs: data.paragraphs };
+      const story: Story = { id, title: data.title, category: 'Divertissement', theme: form.theme, length: form.length, createdAt: new Date().toISOString(), favorite: false, finished: false, visual: visuals[Math.floor(Math.random() * visuals.length)], paragraphs: data.paragraphs };
       luneo.createStory(story);
       setResult(story);
       sessionStorage.removeItem(CREATE_DRAFT_KEY);
@@ -744,7 +743,7 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
     );
   }
 
-  const labels = ['Départ', 'Ambiance', 'Pour qui', 'Derniers détails'];
+  const labels = ['Ambiance', 'Pour qui', 'Derniers détails'];
   return (
     <div className="page wizard">
       <div className="eyebrow">La fabrique à histoires</div>
@@ -759,44 +758,18 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
       <div className="wizard-card">
         {step === 1 && (
           <>
-            <h2>Quel genre d'aventure ?</h2>
-            <p>Choisissez l'humeur de ce soir.</p>
-            <div className="choice-grid">
-              {([['Divertissement', 'Une grande aventure pleine de merveilles', Sparkles], ['Émotions & apprentissage', `Mettre des mots sur ce qui traverse ${luneo.state.child.name || 'votre enfant'}`, CircleHelp]] as const).map(([name, desc, Icon]) => (
-                <button key={name} className={`choice ${form.category === name ? 'selected' : ''}`} onClick={() => set({ category: name as Category, theme: name === 'Émotions & apprentissage' ? lessonOptions[0] : themes[0] })} data-testid={`button-category-${name}`}>
-                  <span className="choice-icon"><Icon size={17} /></span>
-                  <span><strong>{name}</strong><small>{desc}</small></span>
-                </button>
-              ))}
+            <h2>Quel sera le thème ?</h2>
+            <p>Un fil rouge pour laisser l'imagination s'envoler.</p>
+            <div className="tag-grid">
+              {themes.map(t => <button className={`tag ${form.theme === t ? 'selected' : ''}`} key={t} onClick={() => set({ theme: t })} data-testid={`button-theme-${t}`}>{t}</button>)}
+            </div>
+            <div className="field" style={{ marginTop: 28 }}>
+              <label className="field-label">Une idée en tête ? <span style={{ fontWeight: 400 }}>(facultatif)</span></label>
+              <textarea className="text-area" value={form.idea} onChange={e => set({ idea: e.target.value })} placeholder="Un volcan qui chante, une cabane dans les nuages…" data-testid="input-custom-idea" />
             </div>
           </>
         )}
         {step === 2 && (
-          <>
-            {form.category === 'Émotions & apprentissage' ? (
-              <>
-                <h2>Quelle leçon du quotidien ?</h2>
-                <p>Un petit apprentissage de tous les jours, glissé dans une histoire toute simple.</p>
-                <div className="tag-grid">
-                  {lessonOptions.map(t => <button className={`tag ${form.theme === t ? 'selected' : ''}`} key={t} onClick={() => set({ theme: t })} data-testid={`button-theme-${t}`}>{t}</button>)}
-                </div>
-              </>
-            ) : (
-              <>
-                <h2>Quel sera le thème ?</h2>
-                <p>Un fil rouge pour laisser l'imagination s'envoler.</p>
-                <div className="tag-grid">
-                  {themes.map(t => <button className={`tag ${form.theme === t ? 'selected' : ''}`} key={t} onClick={() => set({ theme: t })} data-testid={`button-theme-${t}`}>{t}</button>)}
-                </div>
-              </>
-            )}
-            <div className="field" style={{ marginTop: 28 }}>
-              <label className="field-label">Une idée en tête ? <span style={{ fontWeight: 400 }}>(facultatif)</span></label>
-              <textarea className="text-area" value={form.idea} onChange={e => set({ idea: e.target.value })} placeholder={form.category === 'Émotions & apprentissage' ? 'Un exemple précis du quotidien, une situation vécue…' : 'Un volcan qui chante, une cabane dans les nuages…'} data-testid="input-custom-idea" />
-            </div>
-          </>
-        )}
-        {step === 3 && (
           <>
             <h2>Pour qui raconte-t-on ?</h2>
             <p>Chaque détail rend le voyage plus personnel.</p>
@@ -815,7 +788,7 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
             </div>
           </>
         )}
-        {step === 4 && (
+        {step === 3 && (
           <>
             <h2>Combien de temps ce soir ?</h2>
             <p>Une histoire peut être courte et laisser de grands souvenirs.</p>
@@ -842,7 +815,7 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
             : <span />
           }
           <button className="button-primary" onClick={next} data-testid="button-wizard-next">
-            {step === 4 ? 'Créer l\'histoire' : 'Continuer'}<ChevronRight size={16} />
+            {step === 3 ? 'Créer l\'histoire' : 'Continuer'}<ChevronRight size={16} />
           </button>
         </div>
       </div>

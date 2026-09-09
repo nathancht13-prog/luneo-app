@@ -26,6 +26,7 @@ export type Child = {
 };
 
 export const themes = ['Aventure', 'Amitié', 'Mystère', 'Dinosaures', 'Espace', 'Émotions', 'Créatures'];
+export const lessonOptions = ['Se brosser les dents', 'Dire s\'il te plaît et merci', 'Partager ses jouets', 'Ne pas taper quand on est en colère', 'Ranger sa chambre', 'Demander pardon', 'Écouter les autres', 'Aller se coucher à l\'heure'];
 export const interestOptions = ['Dinosaures', 'Dragons', 'Espace', 'Océan', 'Forêt', 'Machines'];
 export const preferenceOptions = ['Créatures', 'Mystères', 'Amitié', 'Humour', 'Courage', 'Apaisement'];
 export const companionOptions = ['Chien', 'Chat', 'Lapin', 'Renard', 'Hérisson', 'Ourson', 'Poussin', 'Petit dragon'];

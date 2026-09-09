@@ -39,7 +39,7 @@ import {
   UserRound,
   WandSparkles,
 } from 'lucide-react';
-import { themes, interestOptions, preferenceOptions, companionOptions, type Category, type Child, type Story } from './data';
+import { themes, lessonOptions, interestOptions, preferenceOptions, companionOptions, type Category, type Child, type Story } from './data';
 
 // ─── Clerk setup ─────────────────────────────────────────────────────────────
 const clerkPubKey = publishableKeyFromHost(
@@ -763,7 +763,7 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
             <p>Choisissez l'humeur de ce soir.</p>
             <div className="choice-grid">
               {([['Divertissement', 'Une grande aventure pleine de merveilles', Sparkles], ['Émotions & apprentissage', `Mettre des mots sur ce qui traverse ${luneo.state.child.name || 'votre enfant'}`, CircleHelp]] as const).map(([name, desc, Icon]) => (
-                <button key={name} className={`choice ${form.category === name ? 'selected' : ''}`} onClick={() => set({ category: name as Category })} data-testid={`button-category-${name}`}>
+                <button key={name} className={`choice ${form.category === name ? 'selected' : ''}`} onClick={() => set({ category: name as Category, theme: name === 'Émotions & apprentissage' ? lessonOptions[0] : themes[0] })} data-testid={`button-category-${name}`}>
                   <span className="choice-icon"><Icon size={17} /></span>
                   <span><strong>{name}</strong><small>{desc}</small></span>
                 </button>
@@ -773,14 +773,26 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
         )}
         {step === 2 && (
           <>
-            <h2>Quel sera le thème ?</h2>
-            <p>Un fil rouge pour laisser l'imagination s'envoler.</p>
-            <div className="tag-grid">
-              {themes.map(t => <button className={`tag ${form.theme === t ? 'selected' : ''}`} key={t} onClick={() => set({ theme: t })} data-testid={`button-theme-${t}`}>{t}</button>)}
-            </div>
+            {form.category === 'Émotions & apprentissage' ? (
+              <>
+                <h2>Quelle leçon du quotidien ?</h2>
+                <p>Un petit apprentissage de tous les jours, glissé dans une histoire toute simple.</p>
+                <div className="tag-grid">
+                  {lessonOptions.map(t => <button className={`tag ${form.theme === t ? 'selected' : ''}`} key={t} onClick={() => set({ theme: t })} data-testid={`button-theme-${t}`}>{t}</button>)}
+                </div>
+              </>
+            ) : (
+              <>
+                <h2>Quel sera le thème ?</h2>
+                <p>Un fil rouge pour laisser l'imagination s'envoler.</p>
+                <div className="tag-grid">
+                  {themes.map(t => <button className={`tag ${form.theme === t ? 'selected' : ''}`} key={t} onClick={() => set({ theme: t })} data-testid={`button-theme-${t}`}>{t}</button>)}
+                </div>
+              </>
+            )}
             <div className="field" style={{ marginTop: 28 }}>
               <label className="field-label">Une idée en tête ? <span style={{ fontWeight: 400 }}>(facultatif)</span></label>
-              <textarea className="text-area" value={form.idea} onChange={e => set({ idea: e.target.value })} placeholder="Un volcan qui chante, une cabane dans les nuages…" data-testid="input-custom-idea" />
+              <textarea className="text-area" value={form.idea} onChange={e => set({ idea: e.target.value })} placeholder={form.category === 'Émotions & apprentissage' ? 'Un exemple précis du quotidien, une situation vécue…' : 'Un volcan qui chante, une cabane dans les nuages…'} data-testid="input-custom-idea" />
             </div>
           </>
         )}

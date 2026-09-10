@@ -685,14 +685,14 @@ function CreatePage({ luneo }: { luneo: ReturnType<typeof useLuneo> }) {
       luneo.createStory(story);
       setResult(story);
       trackEvent('story_generated', {
-        category: form.category,
+        category: 'Divertissement',
         theme: form.theme,
         length: form.length,
         subscribed,
       });
       sessionStorage.removeItem(CREATE_DRAFT_KEY);
     } catch {
-      trackEvent('story_generation_failed', { category: form.category });
+      trackEvent('story_generation_failed', { category: 'Divertissement' });
       setError('La génération a échoué. Réessayez dans un instant.');
     } finally {
       setGenerating(false);
